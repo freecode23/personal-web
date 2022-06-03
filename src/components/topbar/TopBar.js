@@ -1,5 +1,6 @@
 import "./topbar.css"
-import shProfile from "../images/sh-circ.png"
+import shProfile from "../../images/sh-circ.png"
+
 
 export default function TopBar() {
     return (

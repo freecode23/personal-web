@@ -1,13 +1,18 @@
 import TopBar from "./components/topbar/TopBar";
 import Home from "./pages/home/Home";
+import Single from "./pages/single/Single";
+import Write from "./pages/write/Write";
+import Setting from "./pages/setting/Setting";
 
 function App() {
   return (
     <div className="App">
       <TopBar />
-      <Home />
-
-    </div>
+      {/* <Single /> */}
+      {/* <Home /> */}
+      {/* <Write /> */}
+      <Setting />
+    </div >
   );
 }
 

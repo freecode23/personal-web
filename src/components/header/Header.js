@@ -1,5 +1,5 @@
 import "./header.css"
-import oneillCylinder from "../images/oneill.jpeg"
+import oneillCylinder from "../../images/oneill.jpeg"
 
 export default function Header() {
     return (

@@ -1,5 +1,6 @@
 .sidebar {
-    flex: 4;
+    flex: 3;
+    position: sticky;
     margin: 20px;
     padding-bottom: 30px;
     display: flex;
@@ -15,6 +16,10 @@
     align-items: center;
 }
 
+.sidebarItem>p:hover {
+    text-decoration: underline;
+}
+
 .sidebarTitle {
     margin: 10px;
     padding: 5px;
@@ -27,18 +32,21 @@
     font-family: "Space Grotesk";
 }
 
-.sidebarItem>p {
-    padding: 30px;
+.sidebarListItem:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 0.15rem;
 }
 
 .sidebarImg {
-    width: 180px;
+    width: 150px;
     margin-top: 15px;
 }
 
 .sidebarList {
     list-style-type: none;
     margin-bottom: 30px;
+    font-family: "Space Grotesk";
+    font-weight: 600;
     /* padding-inline-start: 0; */
 }
 
@@ -48,4 +56,17 @@
     margin-top: 15px;
     cursor: pointer;
     font-size: small;
+}
+
+.settingPpIcon {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    background-color: #666;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    cursor: pointer;
 }

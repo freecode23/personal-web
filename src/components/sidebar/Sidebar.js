@@ -1,12 +1,12 @@
 import "./sidebar.css"
-import shProfile from "../images/sh-circ.png"
+import shProfile from "../../images/sh-circ.png"
 
 
 function Sidebar() {
     return (
         <div className='sidebar'>
             <div className="sidebarItem">
-                <span className="sidebarTitle">About me</span>
+                {/* <span className="sidebarTitle">About me</span> */}
                 <img className="sidebarImg" src={shProfile} alt="sherly" />
                 <p>some para</p>
             </div>
