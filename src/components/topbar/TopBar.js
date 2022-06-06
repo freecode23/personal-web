@@ -1,8 +1,11 @@
 import "./topbar.css"
 import shProfile from "../../images/sh-circ.png"
-
+import {
+    Link
+} from "react-router-dom";
 
 export default function TopBar() {
+    const user = true;
     return (
         <div className="top">
             <div className="topLeft">
@@ -12,26 +15,32 @@ export default function TopBar() {
             <div className="topCenter">
                 <ul className="topList">
                     <li className="topListItem">
-                        HOME
+                        <Link className="link" to={"/"}>HOME</Link>
                     </li>
                     <li className="topListItem">
-                        ABOUT
+                        <Link className="link" to={"/about"}>ABOUT</Link>
                     </li>
                     <li className="topListItem">
-                        CONTACT
+                        <Link className="link" to={"/contact"}>CONTACT</Link>
                     </li>
+
+                    {user && <li className="topListItem">
+                        <Link className="link" to={"/write"}>WRITE</Link>
+                    </li>}
+
                     <li className="topListItem">
-                        WRITE
-                    </li>
-                    <li className="topListItem">
-                        LOGOUT
+                        {user && "LOGOUT"}
                     </li>
                 </ul>
             </div>
             <div className="topRight">
-                <img className="topProfileImg" src={shProfile} alt="profile" />
-                <i className="topSearchIcon fa-solid fa-magnifying-glass"></i>
+                {user &&
+                    <Link className="link" to={"/setting"}>
+                        <img className="topProfileImg" src={shProfile} alt="profile" />
+                    </Link>
 
+                }
+                <i className="topSearchIcon fa-solid fa-magnifying-glass"></i>
             </div>
 
         </div >

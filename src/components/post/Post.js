@@ -1,7 +1,9 @@
 import './post.css'
-
+import { Link } from "react-router-dom";
 function Post() {
     return (
+
+
         <div className="post">
             <img
                 className="postImg"
@@ -17,9 +19,8 @@ function Post() {
                         WebDev
                     </span>
                 </div>
-                <span className="postTitle">
-                    Object Tracking
-                </span>
+                <Link className="link postTitle" to={"/post/123"}>Object Tracking</Link>
+
                 <hr />
                 <span className="postDate">1 hour ago</span>
             </div>
