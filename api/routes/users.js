@@ -4,6 +4,23 @@ const Post = require('../models/Post');
 const bcrypt = require("bcrypt");
 
 
+// the CREATE is in auth.js
+// GET
+router.get("/:id",
+    async (req, res) => {
+        // 1. check if the request comes from the same user in params
+        try {
+            const user = await User.findById(req.params.id);
+            // only return the field without password
+            const { password, ...others } = user._doc;
+            res.status(200).json(others);
+
+        } catch (err) {
+            res.status(404).json("User doesn't exists");
+        }
+
+    })
+
 // UPDATE
 router.put("/:id",
     async (req, res) => {
@@ -58,18 +75,6 @@ router.delete("/:id",
     })
 
 
-// GET
-router.get("/:id",
-    async (req, res) => {
-        // 1. check if the request comes from the same user in params
-        try {
-            const user = await User.findById(req.params.id);
-            res.status(200).json(user);
 
-        } catch (err) {
-            res.status(404).json("User doesn't exists");
-        }
-
-    })
 
 module.exports = router;
