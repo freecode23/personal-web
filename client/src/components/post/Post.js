@@ -1,34 +1,35 @@
 import './post.css'
 import { Link } from "react-router-dom";
-function Post() {
+function Post(props) {
+    // 1. create category JSX array
+    const catJSXElements = props.post.categories.map(cat => {
+        return (
+            <span key={cat} className="postCat">
+                {cat}
+            </span>
+        )
+    })
+
     return (
-
-
         <div className="post">
+
             <img
                 className="postImg"
+                // replace the url with {props.post.photo}
                 src="https://industrywired.b-cdn.net/wp-content/uploads/2020/01/The_Era-of-Computer-Vision-Is-Here.png"
-                alt=""
+                alt="blog cover"
             />
             <div className="postInfo">
                 <div className="postCats">
-                    <span className="postCat">
-                        ML
-                    </span>
-                    <span className="postCat">
-                        WebDev
-                    </span>
+                    {catJSXElements}
                 </div>
-                <Link className="link postTitle" to={"/post/123"}>Object Tracking</Link>
+                <Link className="link postTitle" to={`/blogposts/${props.post._id}`}>{props.post.title}</Link>
 
                 <hr />
                 <span className="postDate">1 hour ago</span>
             </div>
             <p className="postDesc">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
-                officia architecto deserunt deleniti? Labore ipsum aspernatur magnam
-                fugiat, reprehenderit praesentium blanditiis quos cupiditate ratione
-                atque, exercitationem quibusdam, reiciendis odio laboriosam?
+                {props.post.desc}
             </p>
         </div>
     )

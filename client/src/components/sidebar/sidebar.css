@@ -1,6 +1,11 @@
+/* .sidebarContainer {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+} */
+
 .sidebar {
     flex: 3;
-    position: sticky;
     margin: 20px;
     padding-bottom: 30px;
     display: flex;

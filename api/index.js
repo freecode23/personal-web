@@ -39,16 +39,16 @@ const upload = multer({ storage: storage });
 app.post("/api/upload", // the route
     upload.single("file"), // the key name
     (req, res) => {
-        res.status(200).json("File has been uploadeds")
+        res.status(200).json("File has been uploaded")
     })
 
 // 4. use router
 app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);
-app.use("/api/blogposts", postsRoute);
+app.use("/api/blogposts", postsRoute); // I want to change this to blogposts, but it gives error in SinglePost
 app.use("/api/categories", categoriesRoute);
 
 
-app.listen(3000, () => {
+app.listen(4000, () => {
     console.log("back end running");
 })
