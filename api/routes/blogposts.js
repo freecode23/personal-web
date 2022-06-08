@@ -35,6 +35,40 @@ router.get("/:id",
 
     })
 
+// get all posts by user, category or all
+// "/?user="
+router.get("/",
+    async (req, res) => {
+        const username = req.query.user;
+        const catName = req.query.cat;
+
+        try {
+
+            let posts;
+
+            if (username) { // fetch post by username
+                posts = await Post.find({ username: username });
+
+            } else if (catName) { // fetch post by category name
+                posts = await Post.find({
+                    categories: {
+                        $in: [catName]
+                    }
+                });
+
+            } else { // fetch all post
+                posts = await Post.find();
+            }
+            res.status(200).json(posts);
+
+        } catch (err) {
+            res.status(404).json("Post doesn't exists");
+        }
+
+    })
+
+
+
 // UPDATE
 router.put("/:id",
     async (req, res) => {
