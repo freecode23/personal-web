@@ -5,7 +5,12 @@ import { Link } from "react-router-dom";
 import shProfile from "../../images/sh-circ.png"
 
 export default function TopBar() {
-    const { user } = useContext(UserContext);
+    const { user, dispatch } = useContext(UserContext);
+
+    const handleLogout = () => {
+        dispatch({ type: "LOGOUT" })
+    }
+
     return (
         <div className="top">
             <div className="topLeft">
@@ -25,10 +30,10 @@ export default function TopBar() {
                     </li>
 
                     {user && <li className="topListItem">
-                        <Link className="link" to={"/write"}>WRITE</Link>
+                        <Link className="link" to={"/write"} >WRITE</Link>
                     </li>}
 
-                    <li className="topListItem">
+                    <li className="topListItem" onClick={handleLogout}>
                         {user && "LOGOUT"}
                     </li>
                 </ul>

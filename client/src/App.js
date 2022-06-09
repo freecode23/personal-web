@@ -20,8 +20,6 @@ function App() {
   return (
     <Router>
       <TopBar />
-
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={user ? <Home /> : <Login />} />
@@ -29,7 +27,6 @@ function App() {
         <Route path="/write" element={user ? <Write /> : <Register />} />
         <Route path="/setting" element={user ? <Setting /> : <Register />} />
         <Route path="/blogposts/:postId" element={<Single />} />
-
       </Routes>
     </Router >
   );
