@@ -24,7 +24,7 @@ function SinglePost() {
             // request to : "localhost::4000/api/ + "blogposts/:postId"
             // response to : localhost::3000/blogposts/id
             const res = await axios.get(param.postId);
-            console.log(res);
+
             // set posts
             setPost(res.data);
         }

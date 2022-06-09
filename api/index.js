@@ -45,7 +45,7 @@ app.post("/api/upload", // the route
 // 4. use router
 app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);
-app.use("/api/blogposts", postsRoute); // I want to change this to blogposts, but it gives error in SinglePost
+app.use("/api/blogposts", postsRoute);
 app.use("/api/categories", categoriesRoute);
 
 

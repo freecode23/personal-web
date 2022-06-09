@@ -17,8 +17,6 @@ router.post("/", async (req, res) => {
     }
 })
 
-
-
 // READ
 // get all categories
 router.get("/",
