@@ -43,6 +43,11 @@
     background-color: rgb(255, 255, 255);
 }
 
+.loginButton:disabled {
+    cursor: not-allowed;
+    background-color: grey;
+}
+
 .loginButton:hover {
     margin-top: 20px;
     cursor: pointer;

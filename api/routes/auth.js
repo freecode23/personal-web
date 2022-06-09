@@ -32,19 +32,25 @@ router.post("/login",
     async (req, res) => {
         try {
 
-            // 1. find the user in db
-            const user = await User.findOne({ username: req.body.username });
-            !user && res.status(400).json("Wrong credentials");
+            // 1. find the user in db using the email provided
+            const user = await User.findOne({ email: req.body.email });
+            // !user && res.status(400).json("Wrong credentials");
 
             // 2. compare password
-            const validate = await bcrypt.compare(req.body.password, user.password);
-            !validate && res.status(400).json("Wrong credentials");
+            const isPasswordMatch = await bcrypt.compare(req.body.password, user.password);
 
             // 3. get user's field but password. we cannot take user's property directly have to use ._doc
             const { password, ...others } = user._doc;
 
-            // 4. return the user's other properties as json
-            res.status(200).json(others);
+            if (!user) {
+                res.status(400).json("Wrong credentials")
+            } else if (!isPasswordMatch) {
+                res.status(400).json("Wrong credentials")
+
+            } else {
+                // 4. return the user's other properties as json
+                res.status(200).json(others);
+            }
 
         } catch (err) {
             res.status(500).json(err);

@@ -1,11 +1,11 @@
 import "./topbar.css"
+import { useContext } from "react";
+import { UserContext } from "../../context/Context";
+import { Link } from "react-router-dom";
 import shProfile from "../../images/sh-circ.png"
-import {
-    Link
-} from "react-router-dom";
 
 export default function TopBar() {
-    const user = true;
+    const { user } = useContext(UserContext);
     return (
         <div className="top">
             <div className="topLeft">
