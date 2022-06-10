@@ -1,9 +1,10 @@
 .posts {
     display: grid;
-    /* grid-template-columns: repeat(3, 1fr); */
-    /* grid-gap: 5px; */
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-auto-rows: minmax(500px, auto);
     padding-right: 280px;
     padding-top: 50px;
     grid-auto-flow: dense;
+    grid-gap: 5px;
+    /* grid-template-columns: repeat(3, 1fr); */
 }

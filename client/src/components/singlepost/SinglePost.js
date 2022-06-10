@@ -25,13 +25,12 @@ function SinglePost() {
 
         // - define the async function
         const fetchPosts = async () => {
-            // - if we do /blogposts it will make get request to
+            // - if we write "/blogposts" it will make get request to
             // "localhost::4000/api/ + "blogposts /:postId"
 
-            // - if we do blogposts it will make get request to:
-            // will take the current path
+            // - if we wrote "blogposts" it will make get request to:
+            // will take the current browser path and append blogposts
             // "localhost::4000/api/blogposts/ + "blogposts /:postId"
-            // response to : localhost::3000/blogposts/id
 
             const res = await axios.get("/blogposts/" + param.postId);
             console.log(res);
