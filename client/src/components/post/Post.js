@@ -18,22 +18,21 @@ function Post(props) {
 
         <Link className="link" to={`/blogposts/${props.post._id}`}>
             <div className="post box">
-
-                <div className="postInfo">
-                    <span className="postTitle">{props.post.title}</span>
-                    <div className="postCats">
-                        {catJSXElements}
-                    </div>
-
-                </div>
                 <img
                     className="postImg"
                     src={publicFolderPath + props.post.picture}
                     alt="blog cover"
                 />
+
+                <div className="postInfo">
+                    <span className="postTitle">{props.post.title}</span>
+                </div>
                 <p className="postDesc">
                     {props.post.desc}
                 </p>
+                <div className="postCats">
+                    {catJSXElements}
+                </div>
             </div>
         </Link>
 

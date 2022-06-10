@@ -50,7 +50,7 @@
 .postInfo {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    text-align: left;
 }
 
 .postCats {
@@ -70,6 +70,7 @@
     font-family: "Space Grotesk";
     font-size: 24px;
     font-weight: 700;
+    padding-top: 10px;
     cursor: pointer;
 }
 
@@ -78,6 +79,7 @@
     font-size: 14px;
     line-height: 24px;
     margin-top: 15px;
+    text-align: left;
     /* hide more than 4 lines */
     overflow: hidden;
     text-overflow: ellipsis;
