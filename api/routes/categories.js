@@ -9,8 +9,9 @@ router.post("/", async (req, res) => {
 
     try {
         // 2. try save
-        const cat = await newCat.save();
-        res.status(200).json(cat);
+        // const cat = await newCat.save();
+        Category.updateOne(newCat, { upsert: true });
+        res.status(200).json(newCat);
 
     } catch (err) {
         console.log(err);

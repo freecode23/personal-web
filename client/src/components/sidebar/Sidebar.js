@@ -37,21 +37,19 @@ function Sidebar() {
 
 
     return (
-        <div className="sidebarContainer">
-            <div className='sidebar'>
-                <div className="sidebarItem">
-                    {/* <span className="sidebarTitle">About me</span> */}
-                    <img className="sidebarImg" src={shProfile} alt="sherly" />
-                    <p>some para</p>
-                </div>
-                <div className="sidebarItem">
-                    <span className="sidebarTitle">Categories</span>
-                    <ul className="sidebarList">
-                        {catsJSX}
-                    </ul>
-                </div>
+        <div className='sidebar'>
+            <div className="sidebarItem">
+                {/* <span className="sidebarTitle">About me</span> */}
+                <img className="sidebarImg" src={shProfile} alt="sherly" />
+                <p>some para</p>
             </div>
-        </div >
+            <div className="sidebarItem">
+                <span className="sidebarTitle">Categories</span>
+                <ul className="sidebarList">
+                    {catsJSX}
+                </ul>
+            </div>
+        </div>
     )
 }
 

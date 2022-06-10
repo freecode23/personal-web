@@ -6,7 +6,6 @@ const CategorySchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, "cannot add a Category without name"],
-        unique: true
     },
 
 }, { timestamps: true })

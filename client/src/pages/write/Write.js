@@ -44,7 +44,6 @@ function Write() {
         try {
             const res = await axios.post("/blogposts", newPost);
             res.data && navigate("/blogposts/" + res.data._id);
-            // window.location.replace("/blogposts/" + res.data._id);
         } catch (err) {
             console.log(err);
         }
