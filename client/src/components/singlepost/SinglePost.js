@@ -4,13 +4,17 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function SinglePost() {
+
+    // 1. Get the picture from local folder
+    const publicFolderPath = "http://localhost:4000/images/"
+
     // 1. get the id from the param so we can grab the data
     const param = useParams();
 
     // 2. create posts fields
     const [post, setPost] = useState({
         title: "",
-        photo: "",
+        picture: "",
         desc: "",
         categories: []
     });
@@ -39,7 +43,7 @@ function SinglePost() {
             <div className="singlePostWrapper">
                 <img
                     className="singlePostImg"
-                    src="https://miro.medium.com/max/1400/1*MmnkX6j_AlB8t-bI4julcw.png"
+                    src={publicFolderPath + post.picture}
                     alt=""
                 />
                 <h1 className="singlePostTitle">

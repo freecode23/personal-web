@@ -16,11 +16,7 @@ const PostSchema = new mongoose.Schema({
 
     picture: {
         type: String,
-        required: false
-    },
-    username: {
-        type: String,
-        required: true
+        required: [true, "cannot add a post without picture"],
     },
     categories: {
         type: Array,

@@ -24,7 +24,6 @@
 }
 
 ::-webkit-input-placeholder {
-    /* Chrome/Opera/Safari */
     font-family: "Courier Prime";
 }
 
@@ -47,8 +46,7 @@
 .writeSubmit {
     position: absolute;
     top: 20px;
-    right: 50px;
-    /* color: white; */
+    right: 100px;
     background-color: #8FFFF3;
     padding: 8px 20px;
     border: none;
@@ -56,12 +54,13 @@
     font-size: 15px;
     font-family: "Space Grotesk";
     font-weight: 700;
+    cursor: pointer;
 }
 
 .writeImage {
     margin-left: 150px;
     width: 70vw;
-    height: 250px;
+    /* height: 250px; */
     border-radius: 5 px;
     /* object-fit: cover; */
 }

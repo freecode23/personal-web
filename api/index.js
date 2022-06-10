@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const multer = require("multer");
@@ -13,6 +14,7 @@ const categoriesRoute = require("./routes/categories");
 
 dotenv.config();
 app.use(express.json()); // allow to send JSON object to route
+app.use("/images", express.static(path.join(__dirname, "/images"))); // make images folder public
 
 
 // 2. DB
@@ -29,7 +31,7 @@ const storage = multer.diskStorage({
 
     // the file name will be the name provided by the request body
     filename: (req, file, callback) => {
-        callback(null, "hello.jpeg") // replace with body.req.name
+        callback(null, req.body.name) // replace with req.body.name
     }
 })
 
@@ -37,7 +39,7 @@ const upload = multer({ storage: storage });
 
 // check the route
 app.post("/api/upload", // the route
-    upload.single("file"), // the key name
+    upload.single("file"), // the key name of the data received
     (req, res) => {
         res.status(200).json("File has been uploaded")
     })
