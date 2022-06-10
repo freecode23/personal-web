@@ -1,6 +1,8 @@
 import "./register.css"
 import axios from "axios"
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"
+
 
 export default function Register() {
     // 1. Create user object
@@ -8,6 +10,7 @@ export default function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
+    const navigate = useNavigate();
 
 
     // 2. handle form submit
@@ -23,7 +26,7 @@ export default function Register() {
             })
 
             // redirect
-            res.data && window.location.replace("/login");
+            res.data && navigate("/login");
         } catch (err) {
             setError(true);
         }

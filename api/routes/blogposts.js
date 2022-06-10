@@ -4,7 +4,7 @@ const Post = require('../models/Post');
 const bcrypt = require("bcrypt");
 
 
-// CREATE is in auth.js
+// CREATE 
 router.post("/", async (req, res) => {
     // 1. create post
     const newPost = await Post.create(req.body);
@@ -20,7 +20,6 @@ router.post("/", async (req, res) => {
 })
 
 
-
 // READ
 router.get("/:id",
     async (req, res) => {
@@ -32,7 +31,6 @@ router.get("/:id",
         } catch (err) {
             res.status(404).json("Post doesn't exists");
         }
-
     })
 
 // get all posts by user, category or all

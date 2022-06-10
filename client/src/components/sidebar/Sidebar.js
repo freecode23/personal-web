@@ -34,6 +34,8 @@ function Sidebar() {
 
         );
     })
+
+
     return (
         <div className="sidebarContainer">
             <div className='sidebar'>

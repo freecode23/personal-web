@@ -2,6 +2,7 @@
     width: 385px;
     margin: 0px 25px 40px 25px;
     cursor: pointer;
+    border-top: 2px rgb(156, 154, 154) solid;
 }
 
 .box:before {
