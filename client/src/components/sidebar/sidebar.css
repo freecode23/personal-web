@@ -1,15 +1,15 @@
 .sidebar {
-    flex: 3;
-    margin: 20px;
     padding-bottom: 30px;
     display: flex;
     position: fixed;
-    top: 100px;
+    top: 70px;
     right: 0;
+    bottom: 0;
     /* background-color: #fdfbfb; */
     flex-direction: column;
     /* align-items: center; */
     font-family: "Open Sans";
+    width: 280px;
 }
 
 .sidebarItem {

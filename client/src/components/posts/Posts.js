@@ -1,21 +1,16 @@
-import "./posts.css"
+import "./posts.css";
+import Post from "../post/Post";
 
-import Post from "../post/Post"
 
 function Posts(props) {
 
-    const postJSX = props.posts.map(post => {
-        return (
-            <div key={post._id}>
-                <Post post={post} />
-            </div>)
-    })
+    const postJSX = props.posts.map((post) => {
+        return <Post key={post._id} post={post} />;
+    });
 
     return (
-        <div className='posts'>
+        <div className="posts">
             {postJSX}
-        </div>
-    )
+        </div>);
 }
-
-export default Posts
+export default Posts;

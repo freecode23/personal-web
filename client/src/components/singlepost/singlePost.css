@@ -1,11 +1,7 @@
 .singlePost {
-    flex: 9;
+    flex: 1;
+    padding: 40px;
     /* display: flex; */
-}
-
-.singlePostWrapper {
-    padding: 20px;
-    padding-right: 0;
 }
 
 .singlePostImg {

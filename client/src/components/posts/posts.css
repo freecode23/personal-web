@@ -1,6 +1,7 @@
 .posts {
-    flex: 9;
-    display: flex;
-    flex-wrap: wrap;
-    margin: 20px;
+    display: grid;
+    /* grid-template-columns: repeat(3, 1fr); */
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    padding-right: 280px;
+    padding-top: 50px;
 }
