@@ -1,5 +1,5 @@
 import "./singlePost.css"
-import { useParams } from "react-router"
+import { useParams, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -10,6 +10,7 @@ function SinglePost() {
 
     // 1. get the id from the param so we can grab the data
     const param = useParams();
+    const navigate = useNavigate();
 
     // 2. create posts fields
     const [post, setPost] = useState({
@@ -19,16 +20,21 @@ function SinglePost() {
         categories: []
     });
 
-    // 3. Only do this on mount
+    // 3. Get the post from API 
     useEffect(() => {
 
         // - define the async function
         const fetchPosts = async () => {
-            // Question: How does it know to add "blogposts? it always have to match the current path?
-            // request to : "localhost::4000/api/ + "blogposts/:postId"
-            // response to : localhost::3000/blogposts/id
-            const res = await axios.get(param.postId);
+            // - if we do /blogposts it will make get request to
+            // "localhost::4000/api/ + "blogposts /:postId"
 
+            // - if we do blogposts it will make get request to:
+            // will take the current path
+            // "localhost::4000/api/blogposts/ + "blogposts /:postId"
+            // response to : localhost::3000/blogposts/id
+
+            const res = await axios.get("/blogposts/" + param.postId);
+            console.log(res);
             // set posts
             setPost(res.data);
         }
@@ -37,6 +43,13 @@ function SinglePost() {
         fetchPosts();
     }, [param.postId]);
 
+
+    // 4. Delete the post using API
+    const handleDelete = async (event) => {
+
+        await axios.delete(param.postId);
+        await navigate("/");
+    }
 
     return (
         <div className="singlePost">
@@ -50,7 +63,7 @@ function SinglePost() {
                     {post.title}
                     <div className="singlePostEdit">
                         <i className="singlePostIcon far fa-edit"></i>
-                        <i className="singlePostIcon far fa-trash-alt"></i>
+                        <i className="singlePostIcon far fa-trash-alt" onClick={handleDelete}></i>
                     </div>
                 </h1>
 

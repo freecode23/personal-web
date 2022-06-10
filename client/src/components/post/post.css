@@ -1,6 +1,29 @@
 .post {
     width: 385px;
     margin: 0px 25px 40px 25px;
+    cursor: pointer;
+}
+
+.box:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    border: 1px solid #D8D8D8;
+    opacity: 0;
+    -webkit-transition: all 0.25s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+    transition: all 0.25s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+}
+
+.box:hover:before {
+    top: -18px;
+    right: -18px;
+    bottom: -18px;
+    left: -18px;
+    opacity: 1;
 }
 
 .post:hover .postTitle {

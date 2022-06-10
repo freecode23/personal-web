@@ -15,29 +15,30 @@ function Post(props) {
     })
 
     return (
-        <div className="post">
 
-            <img
-                className="postImg"
-                // replace the url with {props.post}
-                src={publicFolderPath + props.post.picture}
-                // src="http://localhost:4000/images/1654797337821cgi.png"
-                // src={"https://industrywired.b-cdn.net/wp-content/uploads/2020/01/The_Era-of-Computer-Vision-Is-Here.png"}
-                alt="blog cover"
-            />
-            <div className="postInfo">
-                <div className="postCats">
-                    {catJSXElements}
+        <Link className="link" to={`/blogposts/${props.post._id}`}>
+            <div className="post box">
+
+                <img
+                    className="postImg"
+                    src={publicFolderPath + props.post.picture}
+                    alt="blog cover"
+                />
+                <div className="postInfo">
+                    <div className="postCats">
+                        {catJSXElements}
+                    </div>
+                    <span className="postTitle">{props.post.title}</span>
+
+                    <hr />
+                    <span className="postDate">1 hour ago</span>
                 </div>
-                <Link className="link postTitle" to={`/blogposts/${props.post._id}`}>{props.post.title}</Link>
-
-                <hr />
-                <span className="postDate">1 hour ago</span>
+                <p className="postDesc">
+                    {props.post.desc}
+                </p>
             </div>
-            <p className="postDesc">
-                {props.post.desc}
-            </p>
-        </div>
+        </Link>
+
     )
 }
 
