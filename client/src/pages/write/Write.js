@@ -6,13 +6,12 @@ import { useNavigate } from "react-router-dom"
 import "./write.css"
 
 // froala
-import Froala from '../../components/editor/Froala';
+import FroalaEditor from '../../components/editor/Froala';
+
 //  draft js
 import MyEditor from '../../components/editor/MyEditor';
 
-
 function Write() {
-
 
     // 1. set the state that will be received by the UI
     // make sure the name is the same as the field name in the model
@@ -123,7 +122,8 @@ function Write() {
 
     return (
         <div className="write">
-            <Froala />
+            {/* <MyEditor /> */}
+            <FroalaEditor />
 
             {file && <img className="writeImage" src={URL.createObjectURL(file)} alt="" />}
 
