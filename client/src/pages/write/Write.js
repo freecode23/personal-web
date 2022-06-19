@@ -8,7 +8,8 @@ import "./write.css"
 import { EditorState } from 'draft-js';
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-
+//  draft js
+import MyEditor from '../../components/editor/MyEditor';
 
 function Write() {
 
@@ -119,28 +120,12 @@ function Write() {
         );
     })
 
-    const [editorState, setEditorState] = React.useState(() =>
-        EditorState.createEmpty()
-    );
 
-    function handleEditorChange(editorSt) {
-        setEditorState(editorSt)
-        console.log(editorSt);
-    }
 
     return (
         <div className="write">
 
-            <Editor
-                editorState={editorState}
-                wrapperClassName="wrapper-class"
-                editorClassName="editor-class"
-                toolbarClassName="toolbar-class"
-                onEditorStateChange={editorSt => {
-                    handleEditorChange(editorSt)
-                }
-                }
-            />
+          <MyEditor/>
 
             {file && <img className="writeImage" src={URL.createObjectURL(file)} alt="" />}
 
