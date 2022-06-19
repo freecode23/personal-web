@@ -5,9 +5,6 @@ import { useState, useEffect, Component } from "react"
 import { useNavigate } from "react-router-dom"
 import "./write.css"
 
-import { EditorState } from 'draft-js';
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 //  draft js
 import MyEditor from '../../components/editor/MyEditor';
 
