@@ -23,6 +23,7 @@ router.post("/", async (req, res) => {
 // READ
 router.get("/:id",
     async (req, res) => {
+        console.log(req.params)
         // 1. check if the request comes from the same user in params
         try {
             const post = await Post.findById(req.params.id);

@@ -2,17 +2,17 @@
 
 require("dotenv").config();
 
- const morgan = require("morgan"),
- express = require("express"),
- helmet = require("helmet"),
- bodyParser = require("body-parser"),
- cors = require("cors"),
- http = require("http"),
- cookieParser = require("cookie-parser"),
- env = require("./config/env"),
- routes = require("./routes/routes"),
- database = require("./config/libs/mongoose"),
- path = require("path");
+const morgan = require("morgan"),
+  express = require("express"),
+  helmet = require("helmet"),
+  bodyParser = require("body-parser"),
+  cors = require("cors"),
+  http = require("http"),
+  cookieParser = require("cookie-parser"),
+  env = require("./config/env"),
+  routes = require("./routes/routes"),
+  database = require("./config/libs/mongoose"),
+  path = require("path");
 
 const router = express.Router();
 
@@ -28,7 +28,7 @@ class Server {
     this.server = http.createServer(this.app);
 
     /*init helmets for securing http headers*/
-    this.helmet = helmet();
+    // this.helmet = helmet({ crossOriginResourePolicy: false });
 
     /*init cors for multiple origin requests*/
     this.cors = cors();
@@ -42,20 +42,26 @@ class Server {
 
   secureHeaders() {
     /*protect http headers of server through Helmet*/
-    this.app.use(this.helmet);
+    // this.app.use(this.helmet);
   }
 
   appConfig() {
     /*allow application to read and send data in body*/
     this.app.use(cookieParser()); // read cookies (needed for auth)
-    this.app.use(bodyParser.json({ limit: "50mb" }));
-    this.app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+    // this.app.use(bodyParser.json({ limit: "50mb" }));
+    // this.app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
     this.app.use(morgan("dev"));
   }
 
   enablingCors() {
     /*enable application CORS*/
     this.app.use(this.cors);
+
+    this.app.all('/', function (req, res, next) {
+      res.header("Access-Control-Allow-Origin : *");
+      res.header("Access-Control-Allow-Headers", "X-Requested-With");
+      next();
+    });
   }
 
   connectoToDB() {
@@ -68,7 +74,9 @@ class Server {
 
   setAPIRoutes() {
     /*routing apis*/
-    this.app.use("/", this.routes);
+    this.app.use("/images", express.static(path.join(__dirname, "/images"))); // make images folder public
+    this.app.use("/api", this.routes);
+
   }
 
   init() {

@@ -22,6 +22,18 @@ class BlogController {
   }
 
   async getPost(req, res) {
+
+    // 1. check if the request comes from the same user in params
+    try {
+      const post = await Post.findById(req.query.id);
+      res.status(200).json(post);
+
+    } catch (err) {
+      res.status(404).json("Post doesn't exists");
+    }
+  }
+
+  async getPosts(req, res) {
     const username = req.query.user;
     const catName = req.query.cat;
 
