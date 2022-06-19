@@ -13,6 +13,7 @@ import FroalaEditorImg from 'react-froala-wysiwyg/FroalaEditorImg';
 
 // Require Font Awesome.
 import 'font-awesome/css/font-awesome.css';
+import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 
 import FroalaEditor from 'react-froala-wysiwyg';
 
@@ -42,9 +43,7 @@ export default function Froala() {
                 onModelChange={e => { handleModelChange(e) }}
                 config={config}
             />
-            {/* @ts-ignore*/}
-            <FroalaEditorImg
-            />
+
         </div>
     )
 }
