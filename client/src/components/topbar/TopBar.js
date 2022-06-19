@@ -15,8 +15,12 @@ export default function TopBar() {
     return (
         <div className="top">
             <div className="topLeft">
-                <i className="topSocialIcon fa-brands fa-github-square"></i>
-                <i className="topSocialIcon fa-brands fa-linkedin"></i>
+                <a className="social link" href="https://www.github.com/freecode23">
+                    <i className="topSocialIcon fa-brands fa-github-square "></i>
+                </a>
+                <a className="social link" href="https://www.linkedin.com/in/sherly-hartono/">
+                    <i className="topSocialIcon fa-brands fa-linkedin"></i>
+                </a>
             </div>
             <div className="topCenter">
                 <ul className="topList">
