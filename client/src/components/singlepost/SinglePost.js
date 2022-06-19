@@ -33,8 +33,9 @@ function SinglePost() {
             // will take the current browser path and append blogposts
             // "localhost::4000/api/blogposts/ + "blogposts /:postId"
 
-            const res = await axios.get("/blogposts/" + param.postId);
+            const res = await axios.get("/blogpost?id=" + param.postId);
             console.log(res);
+
             // set posts
             setPost(res.data);
         }
@@ -47,7 +48,7 @@ function SinglePost() {
     // 4. Delete the post using API
     const handleDelete = async (event) => {
 
-        await axios.delete(param.postId);
+        await axios.delete("/blogpost?id=" + param.postId);
         await navigate("/");
     }
 

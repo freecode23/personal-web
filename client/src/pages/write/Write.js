@@ -9,7 +9,7 @@ import "./write.css"
 import FroalaEditor from '../../components/editor/Froala';
 
 //  draft js
-import MyEditor from '../../components/editor/MyEditor';
+// import MyEditor from '../../components/editor/MyEditor';
 
 function Write() {
 
