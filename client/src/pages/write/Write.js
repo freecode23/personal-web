@@ -1,12 +1,17 @@
-import "./write.css"
-import axios from "axios"
 import React from 'react';
+import axios from "axios"
 import TagsInput from "../../components/tagsInput/tagsInput"
-
-import { useState, useEffect } from "react"
+import { useState, useEffect, Component } from "react"
 import { useNavigate } from "react-router-dom"
+import "./write.css"
+
+import { EditorState } from 'draft-js';
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
 
 function Write() {
+
 
     // 1. set the state that will be received by the UI
     // make sure the name is the same as the field name in the model
@@ -46,7 +51,7 @@ function Write() {
                 console.log(err);
             }
         } else {
-            // show
+            // show error 
         }
 
         // 2. post
@@ -114,8 +119,28 @@ function Write() {
         );
     })
 
+    const [editorState, setEditorState] = React.useState(() =>
+        EditorState.createEmpty()
+    );
+
+    function handleEditorChange(editorSt) {
+        setEditorState(editorSt)
+        console.log(editorSt);
+    }
+
     return (
         <div className="write">
+
+            <Editor
+                editorState={editorState}
+                wrapperClassName="wrapper-class"
+                editorClassName="editor-class"
+                toolbarClassName="toolbar-class"
+                onEditorStateChange={editorSt => {
+                    handleEditorChange(editorSt)
+                }
+                }
+            />
 
             {file && <img className="writeImage" src={URL.createObjectURL(file)} alt="" />}
 
@@ -134,7 +159,7 @@ function Write() {
                         }}
                     />
 
-                    <input
+                    {/* <input
                         className="writeInput"
                         placeholder="Title"
                         type="text"
@@ -142,10 +167,10 @@ function Write() {
                         onChange={e => {
                             setTitle(e.target.value);
                         }}
-                    />
+                    /> */}
                 </div>
 
-                <div className="writeFormGroup">
+                {/* <div className="writeFormGroup">
                     <textarea
                         className="writeInput writeText"
                         placeholder="Start writing..."
@@ -153,7 +178,7 @@ function Write() {
                             setDesc(e.target.value);
                         }}>
                     </textarea>
-                </div>
+                </div> */}
 
                 <div className="writeFormGroup writeCategories">
                     <h2>Enter Some Tags ...</h2>
