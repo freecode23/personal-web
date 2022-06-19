@@ -1,7 +1,7 @@
 import "./setting.css"
 import Sidebar from "../../components/sidebar/Sidebar"
 import profilePicture from "../../images/sh-circ.png"
-
+import React from 'react';
 function Setting() {
     return (
         <div className="setting">

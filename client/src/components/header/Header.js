@@ -1,4 +1,5 @@
 import "./header.css"
+import React from 'react';
 import oneillCylinder from "../../images/oneill.jpeg"
 
 export default function Header() {

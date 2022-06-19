@@ -1,4 +1,5 @@
 import "./sidebar.css";
+import React from 'react';
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import shProfile from "../../images/sh-circ.png";

@@ -1,7 +1,8 @@
 import "./write.css"
+import axios from "axios"
+import React from 'react';
 import TagsInput from "../../components/tagsInput/tagsInput"
 
-import axios from "axios"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
@@ -25,22 +26,30 @@ function Write() {
             categories
         }
 
-        // add photo if file exists - will be set by the JSX
+        // 1. add photo if file exists - will be set by the JSX
         if (file) {
-            // assign the picture to post
-            const data = new FormData();
+
+
+            // get the file name
             const filename = Date.now() + file.name;
-            data.append("name", filename)
-            data.append("file", file);
             newPost.picture = filename;
 
+            // create a new form data
+            const formData = new FormData();
+            formData.append("name", filename)
+            formData.append("file", file);
+
+            // try upload photo file
             try {
-                await axios.post("/upload", data);
+                await axios.post("/upload", formData);
             } catch (err) {
                 console.log(err);
             }
+        } else {
+            // show
         }
 
+        // 2. post
         try {
             const res = await axios.post("/blogposts", newPost);
             res.data && navigate("/blogposts/" + res.data._id);

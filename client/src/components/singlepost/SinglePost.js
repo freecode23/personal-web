@@ -1,4 +1,5 @@
 import "./singlePost.css"
+import React from 'react';
 import { useParams, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
 import axios from "axios";

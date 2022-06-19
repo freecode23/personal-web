@@ -1,6 +1,6 @@
 
 import "./tagsInput.css"
-
+import React from 'react';
 function TagsInput(props) {
     return (
         <div className="tags-input-container">
