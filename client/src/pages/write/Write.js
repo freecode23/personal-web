@@ -120,25 +120,27 @@ function Write() {
 
     return (
         <div className="write">
+            {/* uploaded image */}
+            {file && <img className="writeImage" src={URL.createObjectURL(file)} alt="" />}
+
 
             <Froala />
 
-            {file && <img className="writeImage" src={URL.createObjectURL(file)} alt="" />}
 
             <form className="writeForm">
-
                 <div className="writeFormGroup">
-                    <label htmlFor="fileInput">
-                        <i className="writeIcon fas fa-plus"></i>
-                    </label>
 
-                    <input id="fileInput"
+                    {/* <label htmlFor="fileInput">
+                        <i className="writeIcon fas fa-plus"></i>
+                    </label> */}
+
+                    {/* <input id="fileInput"
                         type="file"
                         style={{ display: "none" }}
                         onChange={e => {
                             setFile(e.target.files[0]);
                         }}
-                    />
+                    /> */}
 
                     {/* <input
                         className="writeInput"
