@@ -1,26 +1,33 @@
 export const froalaConfig = {
     attribution: false,
     placeholder: "Start typing...",
+    fontSizeSelection: true,
     toolbarButtons: {
         moreText: {
             buttons: [
+
                 "bold",
                 "italic",
                 "underline",
+                "fontSize",
                 "strikeThrough",
                 "subscript",
                 "superscript",
-                "fontFamily",
-                "fontSize",
-                "textColor",
-                "backgroundColor",
-                "inlineClass",
-                "inlineStyle",
-                "clearFormatting"
-            ]
+
+                // "fontFamily",
+                // "textColor",
+                // "backgroundColor",
+                // "inlineClass",
+                // "inlineStyle",
+                // "clearFormatting"
+
+
+            ],
+            buttonsVisible: 4
         },
         moreParagraph: {
             buttons: [
+                "|",
                 "alignLeft",
                 "alignCenter",
                 "formatOLSimple",
@@ -74,6 +81,8 @@ export const froalaConfig = {
         "quickInsert",
         "paragraphFormat",
         "paragraphStyle",
+
+        "fontSize",
         "help",
         "draggable",
         "align",
