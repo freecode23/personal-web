@@ -1,38 +1,36 @@
-import React from 'react';
-// Require Editor JS files.
-import 'froala-editor/js/froala_editor.pkgd.min.js';
+import React, { useRef, useEffect, useState } from 'react';
 
-// Require Editor CSS files.
-import 'froala-editor/css/froala_style.min.css';
-import 'froala-editor/css/froala_editor.pkgd.min.css';
+import "froala-editor/css/froala_style.min.css";
+import "froala-editor/js/plugins.pkgd.min.js";
+import "froala-editor/css/froala_editor.pkgd.min.css";
 
-// Require Font Awesome.
-import 'font-awesome/css/font-awesome.css';
-
+import { froalaConfig } from './config';
 import FroalaEditor from 'react-froala-wysiwyg';
+import FroalaEditorButton from "react-froala-wysiwyg";
+
 
 export default function Froala() {
-
     const [state, setState] = React.useState({
         model: 'Example text'
     })
 
-    const [config, setConfig] = React.useState({
-        placeholderText: 'Edit Your Content Here!',
-        charCounterCount: false
-    })
+
+    function handleModelChange(model) {
+        console.log(model);
+        setState(model)
+    }
+
 
     return (
-
-
-        <div>
-            {/* @ts-ignore*/}
+        <>
+            {/* @ts-ignore */}
             <FroalaEditor
-                tag='textarea'
-            // config={this.config}
-            // model={this.state.model}
-            // onModelChange={this.handleModelChange}
+                model={state.model}
+                tag="textarea"
+                onModelChange={e => { handleModelChange(e) }}
+                config={froalaConfig}
+
             />
-        </div>
-    )
+        </>
+    );
 }

@@ -4,9 +4,8 @@ import TagsInput from "../../components/tagsInput/tagsInput"
 import { useState, useEffect, Component } from "react"
 import { useNavigate } from "react-router-dom"
 import "./write.css"
+import Froala from '../../components/editor/Froala';
 
-//  draft js
-import MyEditor from '../../components/editor/MyEditor';
 
 function Write() {
 
@@ -122,7 +121,7 @@ function Write() {
     return (
         <div className="write">
 
-          <MyEditor/>
+            <Froala />
 
             {file && <img className="writeImage" src={URL.createObjectURL(file)} alt="" />}
 
