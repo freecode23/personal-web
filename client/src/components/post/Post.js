@@ -1,6 +1,8 @@
 import './post.css'
 import React from 'react';
+import DOMPurify from 'dompurify';
 import { Link } from "react-router-dom";
+
 function Post(props) {
 
     // 1. Get the picture from local folder
@@ -28,9 +30,15 @@ function Post(props) {
                 <div className="postInfo">
                     <span className="postTitle">{props.post.title}</span>
                 </div>
+                
                 <p className="postDesc">
-                    {props.post.desc}
+                    <div dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(
+                            props.post.content,
+                            {FORCE_BODY: true})}}>
+                    </div>
                 </p>
+
                 <div className="postCats">
                     {catJSXElements}
                 </div>

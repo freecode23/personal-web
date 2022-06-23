@@ -9,7 +9,7 @@ const PostSchema = new mongoose.Schema({
         unique: true
     },
 
-    desc: {
+    content: {
         type: String,
         required: [true, "cannot add a post without description"],
     },

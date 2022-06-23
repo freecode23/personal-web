@@ -4,6 +4,9 @@ import { useParams, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import DOMPurify from 'dompurify';
+
+
 function SinglePost() {
 
     // 1. Get the picture from local folder
@@ -17,7 +20,7 @@ function SinglePost() {
     const [post, setPost] = useState({
         title: "",
         picture: "",
-        desc: "",
+        content: "",
         categories: []
     });
 
@@ -67,12 +70,12 @@ function SinglePost() {
                     </div>
                 </h1>
 
-                <div className="singlePostInfo">
-                    <span>1 day ago</span>
-                </div>
 
                 <p className="singlePostDesc">
-                    {post.desc}
+                    <div dangerouslySetInnerHTML={
+                        //sanitize content and enforce style
+                        {__html: DOMPurify.sanitize(post.content, {FORCE_BODY: true})}}>
+                    </div>
                 </p>
             </div>
         </div>

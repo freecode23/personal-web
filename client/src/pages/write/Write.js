@@ -1,33 +1,44 @@
 import React from 'react';
 import axios from "axios"
+
+import Froala from '../../components/editor/Froala';
 import TagsInput from "../../components/tagsInput/tagsInput"
+
 import { useState, useEffect, Component } from "react"
 import { useNavigate } from "react-router-dom"
+
 import "./write.css"
-import Froala from '../../components/editor/Froala';
 
 
 function Write() {
-
 
     // 1. set the state that will be received by the UI
     // make sure the name is the same as the field name in the model
     // so that req.body works in API
     const [title, setTitle] = useState("");
-    const [desc, setDesc] = useState("");
     const [categories, setCategoryNames] = useState([]);
     const [file, setFile] = useState(null); // the actual picture file
+    const [editorState, setEditorState] = React.useState({
+        model: "",
+    });
     const navigate = useNavigate();
+
+    function handleEditorChange(editorData) {
+        console.log("Run handleEditorChange");
+        console.log("editor data:", editorData);
+        setEditorState(editorData);
+    }
 
     // 2. When publish is click
     const handleSubmit = async (event) => {
+        console.log("handle submit");
         event.preventDefault();
         const newPost = {
             title,
-            desc,
+            content: editorState,
             categories
         }
-
+        console.log("newPost:", newPost);
         // 1. add photo if file exists - will be set by the JSX
         if (file) {
 
@@ -123,26 +134,29 @@ function Write() {
             {/* uploaded image */}
             {file && <img className="writeImage" src={URL.createObjectURL(file)} alt="" />}
 
-
-            <Froala />
-
+            <Froala 
+                editorState={editorState}
+                handleEditorChange={handleEditorChange}
+            />
 
             <form className="writeForm">
                 <div className="writeFormGroup">
 
-                    {/* <label htmlFor="fileInput">
+                    {/* Image */}
+                    <label htmlFor="fileInput">
                         <i className="writeIcon fas fa-plus"></i>
-                    </label> */}
+                    </label>
 
-                    {/* <input id="fileInput"
+                    <input id="fileInput"
                         type="file"
                         style={{ display: "none" }}
                         onChange={e => {
                             setFile(e.target.files[0]);
                         }}
-                    /> */}
+                    />
 
-                    {/* <input
+                    {/* Title */}
+                    <input
                         className="writeInput"
                         placeholder="Title"
                         type="text"
@@ -150,7 +164,7 @@ function Write() {
                         onChange={e => {
                             setTitle(e.target.value);
                         }}
-                    /> */}
+                    />
                 </div>
 
                 {/* <div className="writeFormGroup">
@@ -158,11 +172,12 @@ function Write() {
                         className="writeInput writeText"
                         placeholder="Start writing..."
                         onChange={e => {
-                            setDesc(e.target.value);
+                            setcontent(e.target.value);
                         }}>
                     </textarea>
                 </div> */}
 
+                {/* Tags */}
                 <div className="writeFormGroup writeCategories">
                     <h2>Enter Some Tags ...</h2>
                     <TagsInput
@@ -173,7 +188,10 @@ function Write() {
 
 
 
-                <button type="button" className="writeSubmit" onClick={handleSubmit}>
+                <button
+                    type="button"
+                    className="writeSubmit"
+                    onClick={handleSubmit}>
                     Publish
                 </button>
             </form >
