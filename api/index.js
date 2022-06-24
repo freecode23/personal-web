@@ -65,8 +65,8 @@ const upload = multer({
         bucket: process.env.AWS_BUCKET_NAME,
         acl: 'public-read',
         key: function (req, file, cb) {
-            console.log("\nreq.body:name", req.body.name);
-            console.log("file multers3:\n", file);
+            // console.log("\nreq.body:name", req.body.name);
+            // console.log("file multers3:\n", file);
             cb(null, req.body.name); //use Date.now() for unique file keys
         }
     })
@@ -76,9 +76,12 @@ const upload = multer({
 app.post("/api/upload", // the route
     upload.single("file"), // the key name of the data received
     (req, res) => {
+
+        // send 
         console.log("\nuploading..");
-        console.log(res);
-        res.status(200).json("File has been uploaded")
+        console.log("req.file.location:", req.file);
+        res.send(req.file)
+        // res.status(200).json("File has been uploaded")s
     })
 
 
