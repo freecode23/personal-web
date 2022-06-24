@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 function Post(props) {
 
     // 1. Get the picture from local folder
-    const publicFolderPath = "http://localhost:4000/images/"
+    // const publicFolderPath = "http://localhost:4000/images/"
+    const publicFolderPath = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/"
 
     // 2. create category JSX array
     const catJSXElements = props.post.categories.map(cat => {

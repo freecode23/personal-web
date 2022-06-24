@@ -17,7 +17,6 @@ export default function Froala(props) {
 
     return (
     <div className="editor-wrapper">
-      {/* @ts-ignore */}
         <div className="editor-container">
             <FroalaEditor
                 model={editorState.model}
