@@ -24,21 +24,17 @@ function Write() {
     const navigate = useNavigate();
 
     function handleEditorChange(editorData) {
-        console.log("Run handleEditorChange");
-        console.log("editor data:", editorData);
         setEditorState(editorData);
     }
 
     // 2. When publish is click
     const handleSubmit = async (event) => {
-        console.log("handle submit");
         event.preventDefault();
         const newPost = {
             title,
             content: editorState,
             categories
         }
-        console.log("newPost:", newPost);
         // 1. add photo if file exists - will be set by the JSX
         if (file) {
 
@@ -54,7 +50,10 @@ function Write() {
 
             // try upload photo file
             try {
-                await axios.post("/upload", formData);
+                const res = await axios.post("/upload", formData);
+                console.log("response on write.js:", res);
+                console.log("res.data", res.data) // https://myblogs3bucket.s3.us-east-2.amazonaws.com/1656066064285react.png
+                console.log("res.status", res.status);;
             } catch (err) {
                 console.log(err);
             }

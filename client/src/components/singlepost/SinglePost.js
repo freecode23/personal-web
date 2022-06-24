@@ -10,7 +10,9 @@ import DOMPurify from 'dompurify';
 function SinglePost() {
 
     // 1. Get the picture from local folder
-    const publicFolderPath = "http://localhost:4000/images/"
+    // const publicFolderPath = "http://localhost:4000/images/"
+    const publicFolderPath = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/"
+
 
     // 1. get the id from the param so we can grab the data
     const param = useParams();
