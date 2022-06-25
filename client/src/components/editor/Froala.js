@@ -9,6 +9,7 @@ import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/js/plugins/font_size.min.js";
 import { froalaConfig } from './config';
 import FroalaEditor from 'react-froala-wysiwyg';
+import FroalaEditorView from 'react-froala-wysiwyg';
 import "./froala.css"
 
 
@@ -25,6 +26,7 @@ export default function Froala(props) {
                 config={froalaConfig}
             />
         </div>
+
 
         <div className="editor-display-container">
             <div dangerouslySetInnerHTML={{

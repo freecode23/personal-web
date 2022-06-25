@@ -24,6 +24,7 @@ function Write() {
     const navigate = useNavigate();
 
     function handleEditorChange(editorData) {
+        console.log(editorData);
         setEditorState(editorData);
     }
 
@@ -37,8 +38,6 @@ function Write() {
         }
         // 1. add photo if file exists - will be set by the JSX
         if (file) {
-
-
             // get the file name
             const filename = Date.now() + file.name;
             newPost.picture = filename;
@@ -50,7 +49,7 @@ function Write() {
 
             // try upload photo file
             try {
-                const res = await axios.post("/upload", formData);
+                const res = await axios.post("/upload", formData); // single image
                 console.log("response on write.js:", res);
                 console.log("res.data", res.data) // https://myblogs3bucket.s3.us-east-2.amazonaws.com/1656066064285react.png
                 console.log("res.status", res.status);;
@@ -63,7 +62,8 @@ function Write() {
 
         // 2. post
         try {
-            const res = await axios.post("/blogposts", newPost);
+            const res = await axios.post("/blogposts", newPost); // froala content
+            
             res.data && navigate("/blogposts/" + res.data._id);
         } catch (err) {
             console.log(err);

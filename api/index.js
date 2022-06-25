@@ -32,7 +32,7 @@ mongoose
     .catch((err) => console.log(err));
 
 
-// 3. AWS and Multer
+// 3. AWS 
 // aws config
 aws.config.update({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -40,6 +40,36 @@ aws.config.update({
     region: 'us-east-2'
 });
 const s3=new aws.S3();
+
+// aws froala >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+app.get('/get_signature', function (req, res) {
+
+    console.log("get signature");
+    const froalaS3Configs = {
+        // The name of your bucket.
+        bucket: process.env.AWS_BUCKET_NAME,
+
+        // S3 region. If you are using the default us-east-1, it this can be ignored.
+        region: 'us-east-2',
+
+        // The folder where to upload the images.
+        keyStart: 'uploads',
+
+        // File access.
+        acl: 'public-read',
+
+        // AWS keys.
+        accessKey: process.env.AWS_ACCESS_KEY_ID,
+        secretKey: process.env.AWS_SECRET_ACCESS_KEY
+    }
+
+  const s3Hash = FroalaEditor.S3.getHash(froalaS3Configs);
+  console.log(s3Hash);
+  res.send(s3Hash);
+});
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 
 
 
@@ -65,6 +95,7 @@ const upload = multer({
         bucket: process.env.AWS_BUCKET_NAME,
         acl: 'public-read',
         key: function (req, file, cb) {
+            console.log(req);
             // console.log("\nreq.body:name", req.body.name);
             // console.log("file multers3:\n", file);
             cb(null, req.body.name); //use Date.now() for unique file keys
@@ -75,13 +106,22 @@ const upload = multer({
 // 5. create upload image route
 app.post("/api/upload", // the route
     upload.single("file"), // the key name of the data received
+    (req, res) => {s
+        // send 
+        console.log("\nuploading..");
+        // console.log("req.file.location:", req.file);
+        res.send(req.file)
+        // res.status(200).json("File has been uploaded")
+    })
+
+app.post("/api/upload_froala_image", // the route
+    upload.single("file"), // the key name of the data received
     (req, res) => {
 
         // send 
         console.log("\nuploading..");
-        console.log("req.file.location:", req.file);
         res.send(req.file)
-        // res.status(200).json("File has been uploaded")s
+        // res.status(200).json("File has been uploaded")
     })
 
 
