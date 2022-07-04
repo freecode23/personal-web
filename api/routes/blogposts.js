@@ -75,7 +75,6 @@ router.put("/:id",
             // 1. find the post to be updated
             const post = await Post.findById(req.params.id);
 
-
             // 2. if the post user name is current user
             if (post.username === req.body.username) {
 

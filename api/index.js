@@ -79,7 +79,6 @@ app.get('/api/get_signature', function (req, res) {
 // const upload = multer({ storage: storage });
 
 // 4. multer s3 storage
-// create upload object
 const upload = multer({
     storage: multerS3({
         s3: s3,
@@ -102,9 +101,10 @@ app.post("/api/upload",
     upload.single("file"), 
 
     // - send back the file location as response
-    // https://myblogs3bucket.s3.us-east-2.amazonaws.com/8cf10b9a45e9b14322b7b3b26fab5dfe'
+    // link: https://myblogs3bucket.s3.us-east-2.amazonaws.com/8cf10b9a45e9b14322b7b3b26fab5dfe'
+    // key: 8cf10b9a45e9b14322b7b3b26fab5dfe
     (req, res) => {
-        console.log('req', req.file);
+        // console.log('req', req.file);
         res.json({ link: req.file.location,
                     key: req.file.key
          }) 
