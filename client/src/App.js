@@ -6,7 +6,9 @@ import Write from "./pages/write/Write";
 import Setting from "./pages/setting/Setting";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
-import { UserContext } from "./context/Context";
+
+// import { UserContext } from "./context/Context";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import {
   BrowserRouter as Router,
@@ -15,7 +17,9 @@ import {
 } from "react-router-dom";
 
 function App() {
-  const { user } = useContext(UserContext);
+  // const { user } = useContext(UserContext);
+  
+  const { user } = useAuth0();
 
   return (
     <Router>

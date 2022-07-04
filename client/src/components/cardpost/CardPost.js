@@ -3,6 +3,7 @@ import React from 'react';
 import DOMPurify from 'dompurify';
 import { Link } from "react-router-dom";
 
+
 function CardPost(props) {
     // 1. Get the picture from local folder
     const publicFolderPath = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/"
@@ -16,6 +17,10 @@ function CardPost(props) {
         )
     })
 
+    // 3. get the first paragraph
+    const doc=new DOMParser().parseFromString(props.post.content, 'text/html')
+    const content=doc.querySelector('p').textContent
+    // console.log("props post content>>>>>>>",doc.querySelector('p').textContent);
     return (
 
         <Link className="link" to={`/blogposts/${props.post._id}`}>
@@ -32,11 +37,12 @@ function CardPost(props) {
                 </div>
                 
                 <p className="postDesc">
-                    <div dangerouslySetInnerHTML={{
+                    {content}
+                    {/* <div dangerouslySetInnerHTML={{
                         __html: DOMPurify.sanitize(
                             props.post.content,
                             {FORCE_BODY: true})}}>
-                    </div>
+                    </div> */}
                 </p>
 
                 <div className="postCats">
