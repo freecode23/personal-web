@@ -3,15 +3,35 @@ import React from 'react';
 import { useParams, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { userInfo } from "os";
 import Froala from '../../components/editor/Froala';
 import axios from "axios";
-
 import DOMPurify from 'dompurify';
 
-
-
 function SinglePost() {
+
+    // >>>>>>>> for froala repeat
+    const [signature, setSignature] = React.useState();
+    const [editorContent, setEditorContent] = React.useState({
+        model: "",
+    });
+
+    
+    function handleEditorChange(editorData) {
+        setEditorContent(editorData);
+        // setEditorContent({model:editorData});
+    }
+
+    // - s3
+    React.useEffect(() => {
+        const getSignature = async () => {
+            fetch('/get_signature')
+            .then(r => r.json())
+            .then(data => setSignature(data))
+        }
+        getSignature();
+    }, [])
+
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     // 1. Get the picture from local folder
     // const publicFolderPath = "http://localhost:4000/images/"
@@ -19,7 +39,7 @@ function SinglePost() {
     const {user} = useAuth0();
     const [updateMode, setUpdateMode] = useState(false);
     const [title, setTitle] = useState("");
-    const [desc, setDesc] = useState("");
+    const [content, setContent] = useState("");
     const {isAuthenticated}=useAuth0();
 
     // 2. get the id from the param so we can grab the data
@@ -34,7 +54,9 @@ function SinglePost() {
         categories: []
     });
 
-    // 4. Get the post from API 
+    
+
+    // 4. Init the post object, title, and the text area
     useEffect(() => {
 
         const fetchPosts = async () => {
@@ -47,6 +69,13 @@ function SinglePost() {
             const res = await axios.get("/blogposts/" + param.postId);
             setPost(res.data);
             setTitle(res.data.title);
+
+            // set the content for MongoDB
+            setContent(res.data.content);
+
+            // fill in the value on textarea
+            console.log("init editor content>>>>>>>>\n", res.data.content);
+            setEditorContent({model: res.data.content});
         }
 
         // - call the function 
@@ -66,7 +95,7 @@ function SinglePost() {
         await axios.put(param.postId, {
             username: user.username,
             title,
-            desc
+            content: editorContent
         });
         await navigate("/");
   
@@ -111,12 +140,21 @@ function SinglePost() {
                 }
 
                 {/* Desc */}
-                <p className="singlePostDesc">
-                    <div dangerouslySetInnerHTML={
-                        //sanitize content and enforce style
-                        {__html: DOMPurify.sanitize(post.content, {FORCE_BODY: true})}}>
-                    </div>
-                </p>
+                {updateMode? 
+                    (<Froala 
+                        editorContent={editorContent}
+                        handleEditorChange={handleEditorChange}
+                        imageUploadToS3={signature}
+                    />) :
+
+                    (<p className="singlePostDesc">
+                        <div dangerouslySetInnerHTML={
+                            //sanitize content and enforce style
+                            {__html: DOMPurify.sanitize(post.content, {FORCE_BODY: true})}}>
+                        </div>
+                    </p>)
+                }
+          
 
                 {updateMode && (
                     <button

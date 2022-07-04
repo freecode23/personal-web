@@ -14,7 +14,7 @@ import "./froala.css"
 
 export default function Froala(props) {
     const{editorContent, handleEditorChange, imageUploadToS3} = props;
-    // console.log("Froala s3hash", s3Hash);
+  
 
     return (
     <div className="editor-wrapper">
@@ -30,6 +30,8 @@ export default function Froala(props) {
 
 
         <div className="editor-display-container">
+            {/* <div dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(editorContent.model, {FORCE_BODY: true})}}></div> */}
             <div dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(editorContent, {FORCE_BODY: true})}}></div>
         </div>

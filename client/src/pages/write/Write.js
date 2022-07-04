@@ -20,12 +20,12 @@ function Write() {
     const [categories, setCategoryNames] = useState([]);
     const [file, setFile] = useState(null); // the actual picture file
     const [signature, setSignature] = React.useState();
-    const [editorContent, setEditorState] = React.useState({
+    const [editorContent, setEditorContent] = React.useState({
         model: "",
     });
 
     function handleEditorChange(editorData) {
-        setEditorState(editorData);
+        setEditorContent(editorData);
     }
     
     // 2. get signature and set so we can access s3

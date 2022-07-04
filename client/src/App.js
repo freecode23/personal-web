@@ -20,7 +20,7 @@ function App() {
   // const { user } = useContext(UserContext);
   
   const { user, isLoading } = useAuth0();
-
+  console.log(user);
   return (
     <Router>
       <TopBar />
