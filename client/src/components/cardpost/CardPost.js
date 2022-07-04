@@ -1,12 +1,10 @@
-import './post.css'
+import './cardpost.css'
 import React from 'react';
 import DOMPurify from 'dompurify';
 import { Link } from "react-router-dom";
 
-function Post(props) {
-
+function CardPost(props) {
     // 1. Get the picture from local folder
-    // const publicFolderPath = "http://localhost:4000/images/"
     const publicFolderPath = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/"
 
     // 2. create category JSX array
@@ -24,7 +22,8 @@ function Post(props) {
             <div className="post box">
                 <img
                     className="postImg"
-                    src={publicFolderPath + props.post.picture}
+                    
+                    src={publicFolderPath+props.post.picture}
                     alt="blog cover"
                 />
 
@@ -49,4 +48,4 @@ function Post(props) {
     )
 }
 
-export default Post
+export default CardPost

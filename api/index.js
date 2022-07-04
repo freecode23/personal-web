@@ -19,12 +19,9 @@ const postsRoute = require("./routes/blogposts");
 const categoriesRoute = require("./routes/categories");
 const FroalaEditor = require('./node_modules/wysiwyg-editor-node-sdk/lib/froalaEditor.js');
 
-
 app.use(cors());
 app.use(express.json()); // allow to send JSON object to route
-// app.use(bodyParser.urlencoded({ extended: true}));
 app.use("/images", express.static(path.join(__dirname, "/images"))); // make images folder public
-
 
 // 2. DB
 mongoose
@@ -42,9 +39,7 @@ aws.config.update({
 const s3=new aws.S3();
 
 // aws froala >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-app.get('/get_signature', function (req, res) {
-
-    console.log("get signature");
+app.get('/api/get_signature', function (req, res) {
     const froalaS3Configs = {
         // The name of your bucket.
         bucket: process.env.AWS_BUCKET_NAME,
@@ -64,15 +59,11 @@ app.get('/get_signature', function (req, res) {
     }
 
   const s3Hash = FroalaEditor.S3.getHash(froalaS3Configs);
-  console.log(s3Hash);
+//   console.log("get_signature s3hash", s3Hash);
   res.send(s3Hash);
 });
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-
-
-
 // 4. multer local storage
 // const storage = multer.diskStorage({
 //     // save file inside our api images folder
@@ -94,34 +85,29 @@ const upload = multer({
         s3: s3,
         bucket: process.env.AWS_BUCKET_NAME,
         acl: 'public-read',
-        key: function (req, file, cb) {
-            console.log(req);
+        Key: function (req, file, cb) {
+            // console.log("small K");
+            // console.log("multer request>>>" , req);
             // console.log("\nreq.body:name", req.body.name);
             // console.log("file multers3:\n", file);
-            cb(null, req.body.name); //use Date.now() for unique file keys
-        }
+            cb(null, req.body.name); 
+        },
+
     })
 });
 
 // 5. create upload image route
-app.post("/api/upload", // the route
-    upload.single("file"), // the key name of the data received
-    (req, res) => {s
-        // send 
-        console.log("\nuploading..");
-        // console.log("req.file.location:", req.file);
-        res.send(req.file)
-        // res.status(200).json("File has been uploaded")
-    })
+app.post("/api/upload", 
+    // - upload the file to s3
+    upload.single("file"), 
 
-app.post("/api/upload_froala_image", // the route
-    upload.single("file"), // the key name of the data received
+    // - send back the file location as response
+    // https://myblogs3bucket.s3.us-east-2.amazonaws.com/8cf10b9a45e9b14322b7b3b26fab5dfe'
     (req, res) => {
-
-        // send 
-        console.log("\nuploading..");
-        res.send(req.file)
-        // res.status(200).json("File has been uploaded")
+        console.log('req', req.file);
+        res.json({ link: req.file.location,
+                    key: req.file.key
+         }) 
     })
 
 

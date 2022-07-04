@@ -4,7 +4,7 @@ import axios from "axios"
 import Froala from '../../components/editor/Froala';
 import TagsInput from "../../components/tagsInput/tagsInput"
 
-import { useState, useEffect, Component } from "react"
+import { useState, useEffect} from "react"
 import { useNavigate } from "react-router-dom"
 
 import "./write.css"
@@ -15,44 +15,59 @@ function Write() {
     // 1. set the state that will be received by the UI
     // make sure the name is the same as the field name in the model
     // so that req.body works in API
+    const navigate = useNavigate();
     const [title, setTitle] = useState("");
     const [categories, setCategoryNames] = useState([]);
     const [file, setFile] = useState(null); // the actual picture file
+    const [signature, setSignature] = React.useState();
+    // const [bigImageURL, setBigImageURL] = useState("");
     const [editorState, setEditorState] = React.useState({
         model: "",
     });
-    const navigate = useNavigate();
 
     function handleEditorChange(editorData) {
-        console.log(editorData);
         setEditorState(editorData);
     }
+    
 
-    // 2. When publish is click
+    // 2. get signature and set so we can access s3
+    React.useEffect(() => {
+        const getSignature = async () => {
+            fetch('/get_signature')
+            .then(r => r.json())
+            .then(data => setSignature(data))
+        }
+        getSignature();
+    }, [])
+
+
+    // 3. When publish is clicked
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        // - create newpost with the editor state
         const newPost = {
             title,
             content: editorState,
             categories
         }
-        // 1. add photo if file exists - will be set by the JSX
+        // - add photo if file exists - will be set by the JSX
         if (file) {
-            // get the file name
+            // - get the file name
             const filename = Date.now() + file.name;
-            newPost.picture = filename;
 
-            // create a new form data
+            // - create a new form data
             const formData = new FormData();
             formData.append("name", filename)
             formData.append("file", file);
 
-            // try upload photo file
+            // - upload big photo
             try {
                 const res = await axios.post("/upload", formData); // single image
-                console.log("response on write.js:", res);
-                console.log("res.data", res.data) // https://myblogs3bucket.s3.us-east-2.amazonaws.com/1656066064285react.png
-                console.log("res.status", res.status);;
+                newPost.picture=res.data.key; // save in Mongo
+                
+                console.log("newPost=", newPost);
+
             } catch (err) {
                 console.log(err);
             }
@@ -60,10 +75,9 @@ function Write() {
             // show error 
         }
 
-        // 2. post
+        // 2. create the blogpost
         try {
-            const res = await axios.post("/blogposts", newPost); // froala content
-            
+            const res = await axios.post("/blogposts", newPost); 
             res.data && navigate("/blogposts/" + res.data._id);
         } catch (err) {
             console.log(err);
@@ -91,12 +105,10 @@ function Write() {
     const handleKeydown = async (e) => {
         const catName = e.target.value;
 
-        // if enter key is pressed and category name is not empty create a new one
+        // - if enter key is pressed and category name is not empty create a new one
         if (e.key === 'Enter' && catName.trim()) {
-            // create new category
             await axios.post("/categories", { name: catName });
-
-            // set the array of category names to make a new post
+            // - set the array of category names to make a new post
             await setCategoryNames(prevCatNames => {
                 return [...prevCatNames, catName]
             })
@@ -131,11 +143,15 @@ function Write() {
     return (
         <div className="write">
             {/* uploaded image */}
+            {/* {file && <img className="writeImage" src={bigImageURL ? bigImageURL : URL.createObjectURL(file)} alt="" />} */}
+
+            {/* if file has been staged, display */}
             {file && <img className="writeImage" src={URL.createObjectURL(file)} alt="" />}
 
             <Froala 
                 editorState={editorState}
                 handleEditorChange={handleEditorChange}
+                imageUploadToS3={signature}
             />
 
             <form className="writeForm">
@@ -165,16 +181,6 @@ function Write() {
                         }}
                     />
                 </div>
-
-                {/* <div className="writeFormGroup">
-                    <textarea
-                        className="writeInput writeText"
-                        placeholder="Start writing..."
-                        onChange={e => {
-                            setcontent(e.target.value);
-                        }}>
-                    </textarea>
-                </div> */}
 
                 {/* Tags */}
                 <div className="writeFormGroup writeCategories">

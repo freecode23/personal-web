@@ -1,12 +1,12 @@
 import "./posts.css";
-import Post from "../post/Post";
+import CardPost from "../cardpost/CardPost";
 import React from 'react';
 
 
 function Posts(props) {
 
     const postJSX = props.posts.map((post) => {
-        return <Post key={post._id} post={post} />;
+        return <CardPost key={post._id} post={post} />;
     });
 
     return (

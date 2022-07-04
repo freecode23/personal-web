@@ -8,6 +8,7 @@ import DOMPurify from 'dompurify';
 
 
 function SinglePost() {
+    console.log("hello");
 
     // 1. Get the picture from local folder
     // const publicFolderPath = "http://localhost:4000/images/"
@@ -39,7 +40,6 @@ function SinglePost() {
             // "localhost::4000/api/blogposts/ + "blogposts /:postId"
 
             const res = await axios.get("/blogposts/" + param.postId);
-            console.log(res);
             // set posts
             setPost(res.data);
         }
@@ -51,7 +51,6 @@ function SinglePost() {
 
     // 4. Delete the post using API
     const handleDelete = async (event) => {
-
         await axios.delete(param.postId);
         await navigate("/");
     }
