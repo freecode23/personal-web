@@ -36,6 +36,10 @@
     margin-right: 8px;
 }
 
+.topSocialIcon:hover {
+    color: #8FFFF3;
+}
+
 .topProfileImg {
     width: 50px;
     height: 50px;
