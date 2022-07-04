@@ -2,24 +2,31 @@ import "./singlePost.css"
 import React from 'react';
 import { useParams, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { userInfo } from "os";
+import Froala from '../../components/editor/Froala';
 import axios from "axios";
 
 import DOMPurify from 'dompurify';
 
 
+
 function SinglePost() {
-    console.log("hello");
 
     // 1. Get the picture from local folder
     // const publicFolderPath = "http://localhost:4000/images/"
     const publicFolderPath = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/"
+    const {user} = useAuth0();
+    const [updateMode, setUpdateMode] = useState(false);
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
+    const {isAuthenticated}=useAuth0();
 
-
-    // 1. get the id from the param so we can grab the data
+    // 2. get the id from the param so we can grab the data
     const param = useParams();
     const navigate = useNavigate();
 
-    // 2. create posts fields
+    // 3. create posts fields
     const [post, setPost] = useState({
         title: "",
         picture: "",
@@ -27,10 +34,9 @@ function SinglePost() {
         categories: []
     });
 
-    // 3. Get the post from API 
+    // 4. Get the post from API 
     useEffect(() => {
 
-        // - define the async function
         const fetchPosts = async () => {
             // - if we write "/blogposts" it will make get request to
             // "localhost::4000/api/ + "blogposts /:postId"
@@ -38,10 +44,9 @@ function SinglePost() {
             // - if we wrote "blogposts" it will make get request to:
             // will take the current browser path and append blogposts
             // "localhost::4000/api/blogposts/ + "blogposts /:postId"
-
             const res = await axios.get("/blogposts/" + param.postId);
-            // set posts
             setPost(res.data);
+            setTitle(res.data.title);
         }
 
         // - call the function 
@@ -49,36 +54,81 @@ function SinglePost() {
     }, [param.postId]);
 
 
-    // 4. Delete the post using API
+    // 5. Delete the post using API
     const handleDelete = async (event) => {
         await axios.delete(param.postId);
         await navigate("/");
     }
 
+    const handleUpdate = async (event) => {
+        event.preventDefault();
+
+        await axios.put(param.postId, {
+            username: user.username,
+            title,
+            desc
+        });
+        await navigate("/");
+  
+ 
+    }
+
+
+
     return (
+        
         <div className="singlePost">
             <div className="singlePostWrapper">
+                {/* image */}
                 <img
                     className="singlePostImg"
                     src={publicFolderPath + post.picture}
                     alt=""
                 />
-                <h1 className="singlePostTitle">
-                    {post.title}
-                    <div className="singlePostEdit">
-                        <i className="singlePostIcon far fa-edit"></i>
-                        <i className="singlePostIcon far fa-trash-alt" onClick={handleDelete}></i>
-                    </div>
-                </h1>
 
+                {/* title */}
+                {updateMode? 
+                    (<input className="singlePostTitleInput"
+                            type="text"
+                            value={title}
+                            onChange={(e)=>setTitle(e.target.value)}
+                            autoFocus
+                            /> ):
 
+                    (<h1 className="singlePostTitle">
+                        {post.title}
+                        {isAuthenticated &&(
+                            <div className="singlePostEdit">
+                                <i className="singlePostIcon far fa-edit"
+                                    onClick={() => setUpdateMode(true)}>
+                                </i>
+                                <i className="singlePostIcon far fa-trash-alt"
+                                    onClick={handleDelete}>
+                                </i>
+                            </div>)
+                        }
+                    </h1>)
+                }
+
+                {/* Desc */}
                 <p className="singlePostDesc">
                     <div dangerouslySetInnerHTML={
                         //sanitize content and enforce style
                         {__html: DOMPurify.sanitize(post.content, {FORCE_BODY: true})}}>
                     </div>
                 </p>
+
+                {updateMode && (
+                    <button
+                    type="button"
+                    className="singlePostSubmit"
+                    onClick={handleUpdate}>
+                    Update
+                </button>)}
+                
+
             </div>
+       
         </div>
     )
 }

@@ -1,7 +1,5 @@
 import "./topbar.css"
 import React from 'react';
-import { useContext } from "react";
-import { UserContext } from "../../context/Context";
 import { Link } from "react-router-dom";
 
 // Auth0>>>>>>>>
@@ -11,8 +9,8 @@ import shProfile from "../../images/sh-circ.png"
 export default function TopBar() {
 
     // Auth0>>>>>>>>
-    const {user, isAuthenticated, logout}=useAuth0();
-    console.log("user", user);
+    const {isAuthenticated, logout}=useAuth0();
+    // console.log("user", user);
 
     return (
         <div className="top">
@@ -36,7 +34,7 @@ export default function TopBar() {
                         <Link className="link" to={"/contact"}>CONTACT</Link>
                     </li>
 
-                    {user && <li className="topListItem">
+                    {isAuthenticated && <li className="topListItem">
                         <Link className="link" to={"/write"} >WRITE</Link>
                     </li>}
 
@@ -48,12 +46,12 @@ export default function TopBar() {
                         onClick={()=>logout(
                             {returnTo: window.location.origin}
                         )}>
-                        {user && "LOGOUT"}
+                        {isAuthenticated && "LOGOUT"}
                     </li>
                 </ul>
             </div>
             <div className="topRight">
-                {user &&
+                {isAuthenticated &&
                     <Link className="link" to={"/setting"}>
                         <img className="topProfileImg" src={shProfile} alt="profile" />
                     </Link>

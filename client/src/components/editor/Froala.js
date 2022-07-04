@@ -13,14 +13,14 @@ import "./froala.css"
 
 
 export default function Froala(props) {
-    const{editorState, handleEditorChange, imageUploadToS3} = props;
+    const{editorContent, handleEditorChange, imageUploadToS3} = props;
     // console.log("Froala s3hash", s3Hash);
 
     return (
     <div className="editor-wrapper">
         <div className="editor-container">
             <FroalaEditor
-                model={editorState.model}
+                model={editorContent.model}
                 tag="textarea"
                 onModelChange={handleEditorChange} // will get data and pass to the function
                 config={froalaConfig}
@@ -31,7 +31,7 @@ export default function Froala(props) {
 
         <div className="editor-display-container">
             <div dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(editorState, {FORCE_BODY: true})}}></div>
+                __html: DOMPurify.sanitize(editorContent, {FORCE_BODY: true})}}></div>
         </div>
     </div>
     );

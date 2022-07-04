@@ -1,6 +1,5 @@
 import './cardpost.css'
 import React from 'react';
-import DOMPurify from 'dompurify';
 import { Link } from "react-router-dom";
 
 

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import TopBar from "./components/topbar/TopBar";
 import Home from "./pages/home/Home";
 import Single from "./pages/single/Single";
@@ -19,7 +19,7 @@ import {
 function App() {
   // const { user } = useContext(UserContext);
   
-  const { user } = useAuth0();
+  const { user, isLoading } = useAuth0();
 
   return (
     <Router>
@@ -27,8 +27,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={user ? <Home /> : <Login />} />
-        <Route path="/register" element={user ? <Home /> : <Register />} />
-        <Route path="/write" element={user ? <Write /> : <Register />} />
+
+        {/* Write Route */}
+        {user && !isLoading && <Route path="/write" element={<Write />} />}
+        {!user && <Route path="/write" element={isLoading? <p>Loading...</p> : <Login/> } />}
+
         <Route path="/setting" element={user ? <Setting /> : <Register />} />
         <Route path="/blogposts/:postId" element={<Single />} />
       </Routes>

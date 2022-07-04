@@ -20,8 +20,7 @@ function Write() {
     const [categories, setCategoryNames] = useState([]);
     const [file, setFile] = useState(null); // the actual picture file
     const [signature, setSignature] = React.useState();
-    // const [bigImageURL, setBigImageURL] = useState("");
-    const [editorState, setEditorState] = React.useState({
+    const [editorContent, setEditorState] = React.useState({
         model: "",
     });
 
@@ -29,7 +28,6 @@ function Write() {
         setEditorState(editorData);
     }
     
-
     // 2. get signature and set so we can access s3
     React.useEffect(() => {
         const getSignature = async () => {
@@ -48,7 +46,7 @@ function Write() {
         // - create newpost with the editor state
         const newPost = {
             title,
-            content: editorState,
+            content: editorContent,
             categories
         }
         // - add photo if file exists - will be set by the JSX
@@ -63,9 +61,8 @@ function Write() {
 
             // - upload big photo
             try {
-                const res = await axios.post("/upload", formData); // single image
+                const res = await axios.post("/upload", formData); 
                 newPost.picture=res.data.key; // save in Mongo
-                
                 console.log("newPost=", newPost);
 
             } catch (err) {
@@ -148,11 +145,6 @@ function Write() {
             {/* if file has been staged, display */}
             {file && <img className="writeImage" src={URL.createObjectURL(file)} alt="" />}
 
-            <Froala 
-                editorState={editorState}
-                handleEditorChange={handleEditorChange}
-                imageUploadToS3={signature}
-            />
 
             <form className="writeForm">
                 <div className="writeFormGroup">
@@ -190,8 +182,11 @@ function Write() {
                         onKeyDown={handleKeydown}
                     />
                 </div>
-
-
+                    <Froala 
+                        editorContent={editorContent}
+                        handleEditorChange={handleEditorChange}
+                        imageUploadToS3={signature}
+                    />
 
                 <button
                     type="button"
