@@ -9,10 +9,14 @@ import { useAuth0 } from "@auth0/auth0-react";
 import shProfile from "../../images/sh-circ.png"
 
 export default function TopBar() {
+    const { user, dispatch } = useContext(UserContext);
 
     // Auth0>>>>>>>>
-    const {user, isAuthenticated, logout}=useAuth0();
-    console.log("user", user);
+    const {logout}=useAuth0();
+
+    const handleLogout = () => {
+        dispatch({ type: "LOGOUT" })
+    }
 
     return (
         <div className="top">
