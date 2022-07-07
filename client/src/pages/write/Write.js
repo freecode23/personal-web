@@ -63,7 +63,7 @@ function Write() {
             try {
                 const res = await axios.post("/upload", formData); 
                 newPost.picture=res.data.key; // save in Mongo
-                console.log("newPost=", newPost);
+                // console.log("newPost=", newPost);
 
             } catch (err) {
                 console.log(err);

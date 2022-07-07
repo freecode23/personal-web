@@ -3,10 +3,14 @@ const mongoose = require("mongoose");
 
 //- create interface / schema
 const UserSchema = new mongoose.Schema({
-    username: {
+    name: {
         type: String,
         required: [true, "cannot add an user without name"],
         unique: true
+    },
+    profilePic: {
+        type: String,
+        default: ""
     },
 
     email: {
@@ -15,15 +19,21 @@ const UserSchema = new mongoose.Schema({
         unique: true
     },
 
-    password: {
-        type: String,
-        required: [true, "cannot add an user without email"],
-    },
-
-    profilePic: {
+    about: {
         type: String,
         default: ""
     },
+
+    linkedin: {
+        type: String,
+        default: ""
+    },
+
+    github: {
+        type: String,
+        default: ""
+    },
+
 }, { timestamps: true })
 
 

@@ -1,16 +1,14 @@
 import "./topbar.css"
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from "react-router-dom";
 
-// Auth0>>>>>>>>
-import { useAuth0 } from "@auth0/auth0-react";
 import shProfile from "../../images/sh-circ.png"
+import { useAuth0 } from "@auth0/auth0-react";
+import {UserContext} from "../../context/Context"
 
 export default function TopBar() {
 
-    // Auth0>>>>>>>>
     const {isAuthenticated, logout}=useAuth0();
-    // console.log("user", user);
 
     return (
         <div className="top">

@@ -74,7 +74,6 @@ function SinglePost() {
             setContent(res.data.content);
 
             // fill in the value on textarea
-            console.log("init editor content>>>>>>>>\n", res.data.content);
             setEditorContent({model: res.data.content});
         }
 
