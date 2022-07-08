@@ -18,7 +18,6 @@ function CardPost(props) {
 
     // 3. get the first paragraph
     const doc=new DOMParser().parseFromString(props.post.content, 'text/html')
-    console.log("post.content", props.post.content);
     const content=doc.querySelector('p').textContent
     return (
 

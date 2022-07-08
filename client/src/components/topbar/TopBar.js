@@ -1,10 +1,10 @@
 import "./topbar.css"
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 
 import shProfile from "../../images/sh-circ.png"
 import { useAuth0 } from "@auth0/auth0-react";
-import {UserContext} from "../../context/Context"
+
 
 export default function TopBar() {
 

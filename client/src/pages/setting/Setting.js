@@ -1,80 +1,72 @@
 import axios from 'axios'
-import React, { useContext, useState } from 'react';
-import { UserContext } from "../../context/Context";
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom"
-import Sidebar from "../../components/sidebar/Sidebar"
-import profilePicture from "../../images/sh-circ.png"
+import { useAuth0 } from "@auth0/auth0-react";
 import "./setting.css"
 
 function Setting() {
+    const {user} = useAuth0()
     const navigate = useNavigate();
 
     // 1. variables
-    const {user} = useContext(UserContext);
     const [profilePic, setProfilePic] = useState(null); 
-    const [name, setName] = useState(""); 
+    const [username, setName] = useState(""); 
     const [email, setEmail] = useState(""); 
     const [about, setAbout] = useState(""); 
     const [linkedin, setLinkedin] = useState(""); 
-    const [github, setGitHub] = useState(""); 
+    const [github, setGithub] = useState(""); 
     const [signature, setSignature] = React.useState();
 
+     // 2. update at init
+    useEffect(() => {
 
-    // 2. get signature and set so we can access s3
-    React.useEffect(() => {
+        // - signature for s3
         const getSignature = async () => {
             fetch('/get_signature')
             .then(r => r.json())
             .then(data => setSignature(data))
         }
         getSignature();
+
+        // - get User to prepopulate field
+        const fetchUser = async () => {
+            
+            const fetchedUserData = await axios.get("/users/" + user.sub);
+            if(fetchedUserData.data){
+                setName(fetchedUserData.data.username);
+                setEmail(fetchedUserData.data.email);
+                setAbout(fetchedUserData.data.about);
+                setLinkedin(fetchedUserData.data.linkedin);
+                setGithub(fetchedUserData.data.github);
+            }
+        }
+        fetchUser();
     }, [])
-   console.log(user);
-    // 3. When publish is clicked
+
+
+
+    // 3. When Update is clicked
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // - create newpost with the editor state
+        // - create new or updated user 
         const updatedUser = {
-            userId: user._id,
-            name,
-            profilePic,
+            username,
             email,
             about,
             linkedin,
-            github
-        }
-        // - add photo if file exists - will be set by the JSX
-        if (profilePic) {
-            // - get the file name
-            const filename = Date.now() + profilePic.name;
-
-            // - create a new form data
-            const formData = new FormData();
-            formData.append("name", filename)
-            formData.append("file", profilePic);
-
-            // - upload big photo
-            try {
-                const res = await axios.put("/users/", user._id, updatedUser); 
-                updatedUser.profilePic=res.data.key; // save in Mongo
-                console.log("updatedUser=", updatedUser);
-
-            } catch (err) {
-                console.log(err);
-
-            }
-        } else {
-            // show error 
+            github,
+            sub: user.sub
         }
 
-        // 2. create the blogpost
         try {
-            const res = await axios.post("/blogposts", updatedUser); 
-            res.data && navigate("/blogposts/" + res.data._id);
+            const res = await axios.post("/users", updatedUser); 
+            res.data && navigate("/");
         } catch (err) {
             console.log(err);
         }
+    
+
     }
 
 
@@ -111,7 +103,7 @@ function Setting() {
                             onChange={e =>{
                             setName(e.target.value);
                         }}
-                           defaultValue="Sherly Hartono"
+                           defaultValue={username}
                            />
 
                     <label>Email</label>
@@ -120,7 +112,7 @@ function Setting() {
                         onChange={e =>{
                             setEmail(e.target.value);
                         }}
-                        defaultValue="shartono1@gmail.com"
+                        defaultValue={email}
                         />
                     <label>Linkedin</label>
                     <input
@@ -128,16 +120,16 @@ function Setting() {
                         onChange={e =>{
                             setLinkedin(e.target.value);
                         }}
-                        defaultValue="https://www.linkedin.com/in/sherly-hartono/"
+                        defaultValue={linkedin}
                         />
 
-                    <label>GitHub</label>
+                    <label>Github</label>
                     <input
                         type="text" 
                         onChange={e =>{
-                            setGitHub(e.target.value);
+                            setGithub(e.target.value);
                         }}
-                        defaultValue="https://github.com/freecode23/"
+                        defaultValue={github}
                         />
 
                     <label>About</label>
@@ -145,7 +137,8 @@ function Setting() {
                         onChange={e =>{
                             setAbout(e.target.value);
                         }}
-                        placeholder="I am a student in ..."
+                        placeholder="Hello, my name is.."
+                         defaultValue={about}
                         />
                     <button className="settingSubmitButton"
                             onClick={handleSubmit}>
