@@ -7,7 +7,7 @@ router.post("/",
         try {
 
             const userFound = await User.findOne({ sub: req.body.sub });
-
+            
             if(!userFound) {
                 // 1. create the object based on request
                 const userObj = new User({

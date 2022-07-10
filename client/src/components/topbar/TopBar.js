@@ -10,6 +10,9 @@ export default function TopBar() {
 
     const {isAuthenticated, logout}=useAuth0();
 
+    // fetch user here to get link github, linkedin, and picture
+
+
     return (
         <div className="top">
             <div className="topLeft">

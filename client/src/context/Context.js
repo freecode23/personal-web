@@ -1,9 +1,12 @@
 import React from 'react';
+import axios from 'axios'
+import { useAuth0 } from "@auth0/auth0-react";
 import { createContext, useEffect, useReducer } from "react"
 import Reducer from "./Reducer"
 
+
 const INITIAL_STATE = {
-    // get user from local storate
+    // get user from local storage
     user: JSON.parse(localStorage.getItem("user")) || null,
     isFetching: false,
     error: false
@@ -27,7 +30,7 @@ export const UserContextProvider = ({ children }) => {
     return (
         <UserContext.Provider
             value={{
-                user: state.user,
+                userData: state.user,
                 isFetching: state.isFetching,
                 error: state.error,
                 dispatch

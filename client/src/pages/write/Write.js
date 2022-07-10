@@ -62,8 +62,7 @@ function Write() {
             // - upload big photo
             try {
                 const res = await axios.post("/upload", formData); 
-                newPost.picture=res.data.key; // save in Mongo
-                // console.log("newPost=", newPost);
+                newPost.picture=res.data.key; 
 
             } catch (err) {
                 console.log(err);
@@ -72,7 +71,7 @@ function Write() {
             // show error 
         }
 
-        // 2. create the blogpost
+        // 2. create the blogpost in Mongo
         try {
             const res = await axios.post("/blogposts", newPost); 
             res.data && navigate("/blogposts/" + res.data._id);

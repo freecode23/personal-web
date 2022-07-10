@@ -1,11 +1,13 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom"
 import { useAuth0 } from "@auth0/auth0-react";
+import { UserContext } from "../../context/Context";
 import "./setting.css"
 
 function Setting() {
-    const {user} = useAuth0()
+    const { userData, dispatch } = useContext(UserContext);
+    const { user } = useAuth0()
     const navigate = useNavigate();
 
     // 1. variables
@@ -28,21 +30,15 @@ function Setting() {
         }
         getSignature();
 
-        // - get User to prepopulate field
-        const fetchUser = async () => {
-            
-            const fetchedUserData = await axios.get("/users/" + user.sub);
-            if(fetchedUserData.data){
-                setName(fetchedUserData.data.username);
-                setEmail(fetchedUserData.data.email);
-                setAbout(fetchedUserData.data.about);
-                setLinkedin(fetchedUserData.data.linkedin);
-                setGithub(fetchedUserData.data.github);
-            }
+        // - get User from context to prepopulate field 
+        if(userData) {
+            setName(userData.username);
+            setEmail(userData.email);
+            setAbout(userData.about);
+            setLinkedin(userData.linkedin);
+            setGithub(userData.github);
         }
-        fetchUser();
     }, [])
-
 
 
     // 3. When Update is clicked
@@ -65,8 +61,6 @@ function Setting() {
         } catch (err) {
             console.log(err);
         }
-    
-
     }
 
 
