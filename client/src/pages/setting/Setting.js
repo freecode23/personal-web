@@ -6,7 +6,7 @@ import { UserContext } from "../../context/Context";
 import "./setting.css"
 
 function Setting() {
-    const { userData, dispatch } = useContext(UserContext);
+    const { userData } = useContext(UserContext);
     const { user } = useAuth0()
     const navigate = useNavigate();
 
@@ -106,7 +106,7 @@ function Setting() {
                         onChange={e =>{
                             setEmail(e.target.value);
                         }}
-                        defaultValue={email}
+                   w     defaultValue={email}
                         />
                     <label>Linkedin</label>
                     <input

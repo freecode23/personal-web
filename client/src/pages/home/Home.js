@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
+
 import { useLocation } from "react-router-dom";
 // import Header from "../../components/header/Header"
 import Posts from "../../components/posts/Posts"
@@ -9,6 +10,8 @@ import "./home.css"
 
 
 export default function Home() {
+
+    
     // 1. create posts fields
     const [posts, setPosts] = useState([]);
 

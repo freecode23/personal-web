@@ -9,7 +9,7 @@ export const froalaConfig = {
     imageUploadParam: "file",
     events: {
       'image.uploaded': function (response) {
-            console.log("config response:", response);
+            // console.log("config response:", response);
       }
     },
     toolbarButtons: {

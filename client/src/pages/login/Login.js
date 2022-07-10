@@ -1,11 +1,10 @@
 import "./login.css"
-import React, {useContext} from 'react';
+import React from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
-import { UserContext } from "../../context/Context";
 
 
 export default function Login() {
-    const {user, loginWithRedirect, isLoading, error}=useAuth0();
+    const {loginWithRedirect, isLoading, error}=useAuth0();
 
     return (
         <div className="login">

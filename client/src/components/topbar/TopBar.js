@@ -11,7 +11,11 @@ export default function TopBar() {
     const {isAuthenticated, logout}=useAuth0();
 
     // fetch user here to get link github, linkedin, and picture
-
+    const handleLogout = async (event) => {
+        event.preventDefault();
+        logout({returnTo: window.location.origin});
+        localStorage.removeItem("user");
+    }
 
     return (
         <div className="top">
@@ -44,9 +48,7 @@ export default function TopBar() {
                     </li> */}
                     {/* AUTH0>>>>>>>>>>>>>>>>> */}
                     <li className="topListItem"
-                        onClick={()=>logout(
-                            {returnTo: window.location.origin}
-                        )}>
+                        onClick={handleLogout}>
                         {isAuthenticated && "LOGOUT"}
                     </li>
                 </ul>

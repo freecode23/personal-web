@@ -9,16 +9,13 @@ import DOMPurify from 'dompurify';
 
 function SinglePost() {
 
-    // >>>>>>>> for froala repeat
     const [signature, setSignature] = React.useState();
     const [editorContent, setEditorContent] = React.useState({
         model: "",
     });
 
-    
     function handleEditorChange(editorData) {
         setEditorContent(editorData);
-        // setEditorContent({model:editorData});
     }
 
     // - s3
@@ -32,15 +29,12 @@ function SinglePost() {
     }, [])
 
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
     // 1. Get the picture from local folder
-    // const publicFolderPath = "http://localhost:4000/images/"
     const publicFolderPath = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/"
-    const {user} = useAuth0();
+    const {user, isAuthenticated} = useAuth0();
     const [updateMode, setUpdateMode] = useState(false);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
-    const {isAuthenticated}=useAuth0();
 
     // 2. get the id from the param so we can grab the data
     const param = useParams();
@@ -53,8 +47,6 @@ function SinglePost() {
         content: "",
         categories: []
     });
-
-    
 
     // 4. Init the post object, title, and the text area
     useEffect(() => {
@@ -97,14 +89,9 @@ function SinglePost() {
             content: editorContent
         });
         await navigate("/");
-  
- 
     }
 
-
-
     return (
-        
         <div className="singlePost">
             <div className="singlePostWrapper">
                 {/* image */}

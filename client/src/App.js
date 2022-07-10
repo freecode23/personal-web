@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, {useEffect} from "react";
 import TopBar from "./components/topbar/TopBar";
 import Home from "./pages/home/Home";
 import Single from "./pages/single/Single";
@@ -6,7 +6,6 @@ import Write from "./pages/write/Write";
 import Setting from "./pages/setting/Setting";
 import Login from "./pages/login/Login";
 import axios from 'axios'
-import { UserContext } from "./context/Context";
 import { useAuth0 } from "@auth0/auth0-react";
 
 
@@ -28,7 +27,6 @@ function App() {
         const fetchedUserData = await axios.get("/users/" + user.sub);
         if(fetchedUserData.data){
           localStorage.setItem("user", JSON.stringify(fetchedUserData.data))
-          
         }
       }
     }
