@@ -22,7 +22,7 @@ export default function TopBar() {
         <div className="top">
             <div className="topLeft">
             {
-                userData ?
+                userData &&
                 <>
                     <a className="social link" href={userData.github}>
                         <i className="topSocialIcon fa-brands fa-github-square "></i>
@@ -31,11 +31,16 @@ export default function TopBar() {
                         <i className="topSocialIcon fa-brands fa-linkedin"></i>
                     </a>
                 </>
-                : null
             }
                 
             </div>
             <div className="topCenter">
+                <div className="topCenterName">
+                    Sherly hartono
+                </div>
+                <div className="topCenterDescription">
+                    SOFTWARE DEVELOPMENT, MACHINE LEARNING, MSCS@NORTHEASTERN UNIVERSITY
+                </div>
                 <ul className="topList">
                     <li className="topListItem">
                         <Link className="link" to={"/"}>HOME</Link>
@@ -56,6 +61,8 @@ export default function TopBar() {
                         {isAuthenticated && "LOGOUT"}
                     </li>
                 </ul>
+
+                
             </div>
             <div className="topRight">
                 {isAuthenticated && userData &&
