@@ -49,9 +49,9 @@ function Write() {
             content: editorContent,
             categories
         }
-        // - add photo if file exists - will be set by the JSX
+        // - add big photo if file exists - will be set by the JSX
         if (file) {
-            // - get the file name
+            // - create the name
             const filename = Date.now() + file.name;
 
             // - create a new form data

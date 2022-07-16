@@ -1,39 +1,27 @@
 import React from 'react';
-import { createContext, useEffect, useReducer } from "react"
+import { createContext, useEffect, useReducer, useState } from "react"
 import Reducer from "./Reducer"
 
+// - create empty context
+const UserDataContext = createContext();
 
-const INITIAL_STATE = {
-    // get user from local storage
-    user: JSON.parse(localStorage.getItem("user")) || null,
-    isFetching: false,
-    error: false
+// - create provider (used in index.js to wrap app)
+function UserDataProvider({children}) {
+    const [userData, setUserData] = React.useState()
+
+    const value = {userData, setUserData}
+    return <UserDataContext.Provider value={value}>{children}</UserDataContext.Provider>
 }
 
-export const UserContext = createContext(INITIAL_STATE);
+// - create context containing userData and setUserData (used in children)
+function useUserData() {
+    const context = React.useContext(UserDataContext)
 
-// children are the components that will be passed on this user 
-export const UserContextProvider = ({ children }) => {
-
-    // 1. init the state
-    const [state, dispatch] = useReducer(Reducer, INITIAL_STATE);
-
-    // 2. whenever there is a user change, set it on local storage
-    useEffect(() => {
-        localStorage.setItem("user", JSON.stringify(state.user))
-    }, [state.user])
-
-
-    // 3. provide this state and dispatch function as context to all children
-    return (
-        <UserContext.Provider
-            value={{
-                userData: state.user,
-                isFetching: state.isFetching,
-                error: state.error,
-                dispatch
-            }}>
-            {children}
-        </UserContext.Provider >
-    )
+    if (context === undefined) {
+        throw new Error('useUserData must be within a UserDatProvider')
+    }
+    // userData and setUserData
+    return context;
 }
+
+export  {UserDataProvider, useUserData}

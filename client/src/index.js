@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import { UserContextProvider } from './context/Context';
+import { UserDataProvider } from './context/Context';
 import { Auth0Provider } from '@auth0/auth0-react';
 
 require("dotenv").config();
@@ -17,8 +17,8 @@ root.render(
     clientId={clientId}
     redirectUri={window.location.origin}>  
 
-      <UserContextProvider>
+      <UserDataProvider>
         <App />
-      </UserContextProvider>
+      </UserDataProvider>
     </Auth0Provider>
 );

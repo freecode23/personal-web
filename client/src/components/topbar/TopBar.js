@@ -1,14 +1,15 @@
 import "./topbar.css"
-import React from 'react';
+import React, {useContext} from 'react';
 import { Link } from "react-router-dom";
-
 import shProfile from "../../images/sh-circ.png"
+import { useUserData } from "../../context/Context";
 import { useAuth0 } from "@auth0/auth0-react";
 
 
 export default function TopBar() {
 
     const {isAuthenticated, logout}=useAuth0();
+    const { userData } = useUserData();
 
     // fetch user here to get link github, linkedin, and picture
     const handleLogout = async (event) => {
@@ -20,12 +21,15 @@ export default function TopBar() {
     return (
         <div className="top">
             <div className="topLeft">
-                <a className="social link" href="https://www.github.com/freecode23">
+            {
+                userData ? <><a className="social link" href={userData.github}>
                     <i className="topSocialIcon fa-brands fa-github-square "></i>
                 </a>
-                <a className="social link" href="https://www.linkedin.com/in/sherly-hartono/">
+                <a className="social link" href={userData.linkedin}>
                     <i className="topSocialIcon fa-brands fa-linkedin"></i>
-                </a>
+                </a></> : null
+            }
+                
             </div>
             <div className="topCenter">
                 <ul className="topList">

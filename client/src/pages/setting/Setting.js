@@ -2,13 +2,15 @@ import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom"
 import { useAuth0 } from "@auth0/auth0-react";
-import { UserContext } from "../../context/Context";
+import { useUserData } from "../../context/Context";
 import "./setting.css"
 
 function Setting() {
-    const { userData } = useContext(UserContext);
+    // const { userData } = useContext(UserContext);
     const { user } = useAuth0()
     const navigate = useNavigate();
+    const { userData, setUserData } = useUserData();
+    console.log('userData', userData);
 
     // 1. variables
     const [profilePic, setProfilePic] = useState(null); 
@@ -30,15 +32,20 @@ function Setting() {
         }
         getSignature();
 
+        
+    }, [])
+
+    useEffect(() => {
         // - get User from context to prepopulate field 
         if(userData) {
+            console.log('userData In useEffect', userData)
             setName(userData.username);
             setEmail(userData.email);
             setAbout(userData.about);
             setLinkedin(userData.linkedin);
             setGithub(userData.github);
         }
-    }, [])
+    }, [userData])
 
 
     // 3. When Update is clicked
@@ -52,11 +59,36 @@ function Setting() {
             about,
             linkedin,
             github,
-            sub: user.sub
+            sub: user.sub,
+        }
+        // - add profile pic if its added
+        if (profilePic) {
+            // - create the name
+            const filename = Date.now() + profilePic.name;
+
+            // - create a new form data
+            const formData = new FormData();
+            formData.append("name", filename)
+            formData.append("file", profilePic);
+
+            // - upload big photo
+            try {
+                const res = await axios.post("/upload", formData); 
+                updatedUser.profilePic=res.data.key; 
+
+
+            } catch (err) {
+                console.log(err);
+            }
+        } else {
+            // show error 
         }
 
+        // - update the user
         try {
             const res = await axios.post("/users", updatedUser); 
+            // console.log("res data", res.data);
+            setUserData(res.data);
             res.data && navigate("/");
         } catch (err) {
             console.log(err);
@@ -106,7 +138,7 @@ function Setting() {
                         onChange={e =>{
                             setEmail(e.target.value);
                         }}
-                   w     defaultValue={email}
+                        defaultValue={email}
                         />
                     <label>Linkedin</label>
                     <input

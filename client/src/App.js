@@ -14,19 +14,21 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import { useUserData } from "./context/Context";
 
 
 function App() {
-  // user from oath
+  // - user from auth
   const { user, isLoading } = useAuth0(); 
+  const { setUserData } = useUserData();
 
-  // get user info from database
+  // - user from database
   useEffect(() => {
     const fetchUser = async () => {
       if(user) {
         const fetchedUserData = await axios.get("/users/" + user.sub);
         if(fetchedUserData.data){
-          localStorage.setItem("user", JSON.stringify(fetchedUserData.data))
+          setUserData(fetchedUserData.data);
         }
       }
     }
