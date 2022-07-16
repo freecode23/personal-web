@@ -8,7 +8,11 @@ import axios from "axios";
 import DOMPurify from 'dompurify';
 
 function SinglePost() {
-
+   // 1. Get the picture from local folder
+    const publicFolderPath = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/"
+    const {user, isAuthenticated} = useAuth0();
+    const [updateMode, setUpdateMode] = useState(false);
+    const [title, setTitle] = useState("");
     const [signature, setSignature] = React.useState();
     const [editorContent, setEditorContent] = React.useState({
         model: "",
@@ -28,13 +32,7 @@ function SinglePost() {
         getSignature();
     }, [])
 
-    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    // 1. Get the picture from local folder
-    const publicFolderPath = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/"
-    const {user, isAuthenticated} = useAuth0();
-    const [updateMode, setUpdateMode] = useState(false);
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
+ 
 
     // 2. get the id from the param so we can grab the data
     const param = useParams();
@@ -61,10 +59,7 @@ function SinglePost() {
             const res = await axios.get("/blogposts/" + param.postId);
             setPost(res.data);
             setTitle(res.data.title);
-
-            // set the content for MongoDB
-            setContent(res.data.content);
-
+    
             // fill in the value on textarea
             setEditorContent({model: res.data.content});
         }

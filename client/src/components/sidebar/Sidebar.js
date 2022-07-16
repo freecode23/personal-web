@@ -2,13 +2,16 @@ import "./sidebar.css";
 import React from 'react';
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import shProfile from "../../images/sh-circ.png";
+import { useUserData } from "../../context/Context";
 import axios from "axios";
 
-function Sidebar() {
-    // 1. Declare categories
-    const [cats, setCats] = useState([]);
 
+function Sidebar() {
+    // 1. variables
+    const [cats, setCats] = useState([]);
+    const { userData } = useUserData();
+    const publicFolderPath = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/"
+    
     // 2. Init categories and about from DB
     useEffect(() => {
 
@@ -22,26 +25,36 @@ function Sidebar() {
         };
         fetchCats();
 
-        // - 
 
     }, []);
 
-    // 3. Create the categories JSX with a link to home page with category filtered
+    // 3. Create list of categories JSX with a link to home page with category filtered
     const catsJSX = cats.map((cat) => {
         return (
-            <Link to={`/?cat=${cat.name}`} className="link">
+            <Link to={`/?cat=${cat.name}`}
+            className="link">
                 <li key={cat._id} className="sidebarListItem">
                     {cat.name}
                 </li>
             </Link>
         );
     });
+
+
     return (
         <aside className="sidebar">
             <div className="sidebarItem">
-                {/* <span className="sidebarTitle">About me</span> */}
-                <img className="sidebarImg" src={shProfile} alt="sherly" />
-                <p>some para</p>
+    
+                {userData && 
+                    <>
+                        <img className="sidebarImg"
+                        src={publicFolderPath + userData.profilePic}
+                        alt="sherly" />
+
+                        <p>{userData.about}</p>
+                    </>
+                }
+
             </div>
             <div className="sidebarItem">
                 <span className="sidebarTitle">Categories</span>

@@ -1,13 +1,13 @@
 import "./topbar.css"
-import React, {useContext} from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
-import shProfile from "../../images/sh-circ.png"
 import { useUserData } from "../../context/Context";
 import { useAuth0 } from "@auth0/auth0-react";
 
 
 export default function TopBar() {
 
+    const publicFolderPath = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/"
     const {isAuthenticated, logout}=useAuth0();
     const { userData } = useUserData();
 
@@ -22,12 +22,16 @@ export default function TopBar() {
         <div className="top">
             <div className="topLeft">
             {
-                userData ? <><a className="social link" href={userData.github}>
-                    <i className="topSocialIcon fa-brands fa-github-square "></i>
-                </a>
-                <a className="social link" href={userData.linkedin}>
-                    <i className="topSocialIcon fa-brands fa-linkedin"></i>
-                </a></> : null
+                userData ?
+                <>
+                    <a className="social link" href={userData.github}>
+                        <i className="topSocialIcon fa-brands fa-github-square "></i>
+                    </a>
+                    <a className="social link" href={userData.linkedin}>
+                        <i className="topSocialIcon fa-brands fa-linkedin"></i>
+                    </a>
+                </>
+                : null
             }
                 
             </div>
@@ -47,10 +51,6 @@ export default function TopBar() {
                         <Link className="link" to={"/write"} >WRITE</Link>
                     </li>}
 
-                    {/* <li className="topListItem" onClick={handleLogout}>
-                        {user && "LOGOUT"}
-                    </li> */}
-                    {/* AUTH0>>>>>>>>>>>>>>>>> */}
                     <li className="topListItem"
                         onClick={handleLogout}>
                         {isAuthenticated && "LOGOUT"}
@@ -58,9 +58,11 @@ export default function TopBar() {
                 </ul>
             </div>
             <div className="topRight">
-                {isAuthenticated &&
+                {isAuthenticated && userData &&
                     <Link className="link" to={"/setting"}>
-                        <img className="topProfileImg" src={shProfile} alt="profile" />
+                         <img className="topProfileImg"
+                         src={publicFolderPath + userData.profilePic}
+                         alt="profile" />
                     </Link>
 
                 }

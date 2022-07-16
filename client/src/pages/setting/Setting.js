@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom"
 import { useAuth0 } from "@auth0/auth0-react";
 import { useUserData } from "../../context/Context";
@@ -19,26 +19,11 @@ function Setting() {
     const [about, setAbout] = useState(""); 
     const [linkedin, setLinkedin] = useState(""); 
     const [github, setGithub] = useState(""); 
-    const [signature, setSignature] = React.useState();
 
      // 2. update at init
     useEffect(() => {
-
-        // - signature for s3
-        const getSignature = async () => {
-            fetch('/get_signature')
-            .then(r => r.json())
-            .then(data => setSignature(data))
-        }
-        getSignature();
-
-        
-    }, [])
-
-    useEffect(() => {
         // - get User from context to prepopulate field 
         if(userData) {
-            console.log('userData In useEffect', userData)
             setName(userData.username);
             setEmail(userData.email);
             setAbout(userData.about);
