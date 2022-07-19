@@ -10,7 +10,6 @@ function Setting() {
     const { user } = useAuth0()
     const navigate = useNavigate();
     const { userData, setUserData } = useUserData();
-    console.log('userData', userData);
 
     // 1. variables
     const [profilePic, setProfilePic] = useState(null); 

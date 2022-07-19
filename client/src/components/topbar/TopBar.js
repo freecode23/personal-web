@@ -1,5 +1,6 @@
 import "./topbar.css"
-import React from 'react';
+import axios from 'axios'
+import React, {useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
 import { useUserData } from "../../context/UserContext";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -10,6 +11,7 @@ export default function TopBar() {
     const publicFolderPath = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/"
     const {isAuthenticated, logout}=useAuth0();
     const { userData } = useUserData();
+    const [resumeUrl, setResumeUrl] = useState(""); 
 
     // fetch user here to get link github, linkedin, and picture
     const handleLogout = async (event) => {
@@ -17,6 +19,19 @@ export default function TopBar() {
         logout({returnTo: window.location.origin});
         localStorage.removeItem("user");
     }
+
+    // set resume url
+    useEffect(() => {
+        const fetchResumeUrl = async() => {
+            const res = await axios.get("/download_resume"); 
+            if(res) {
+                setResumeUrl(res.data);
+            }
+        }
+        fetchResumeUrl()
+        
+    }, [])
+
 
     return (
         <div className="top">
@@ -56,10 +71,11 @@ export default function TopBar() {
                         <Link className="link" to={"/write"} >WRITE</Link>
                     </li>}
 
-                    <li className="topListItem">
-                        {/* <a href={publicFolderPath + userData.profilePic}>Click to download</a> */}
-                    </li>
-
+                    {userData &&
+                        <li className="topListItem" >
+                            <a className="link" href={resumeUrl}>RESUME</a>
+                        </li>
+                    }
 
                     <li className="topListItem"
                         onClick={handleLogout}>

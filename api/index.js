@@ -39,6 +39,7 @@ aws.config.update({
 const s3=new aws.S3();
 
 // aws froala >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// get signature so we can upload from froala
 app.get('/api/get_signature', function (req, res) {
     const froalaS3Configs = {
         // The name of your bucket.
@@ -104,12 +105,20 @@ app.post("/api/upload",
     // link: https://myblogs3bucket.s3.us-east-2.amazonaws.com/8cf10b9a45e9b14322b7b3b26fab5dfe'
     // key: 8cf10b9a45e9b14322b7b3b26fab5dfe
     (req, res) => {
-        // console.log('req', req.file);
         res.json({ link: req.file.location,
                     key: req.file.key
          }) 
     })
 
+
+app.get("/api/download_resume", function (req, res) {
+    const url = s3.getSignedUrl('getObject', {
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: '04c5454f0ced6aaf6ed99f09948ad4d1',
+        Expires: 60 * 5
+        })
+    res.send(url)
+})
 
 // 4. use router
 app.use("/api/auth", authRoute);
