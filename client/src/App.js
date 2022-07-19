@@ -8,32 +8,32 @@ import Login from "./pages/login/Login";
 import axios from 'axios'
 import { useAuth0 } from "@auth0/auth0-react";
 
-
 import {
   BrowserRouter as Router,
   Routes,
   Route,
 } from "react-router-dom";
-import { useUserData } from "./context/Context";
+import { useUserData } from "./context/UserContext";
+
+require("dotenv").config();
 
 
 function App() {
   // - user from auth
   const { user, isLoading } = useAuth0(); 
   const { setUserData } = useUserData();
-
-  // - user from database
+  const sub=process.env.REACT_APP_SUB
+  
+  // - get sherly's data from database
   useEffect(() => {
-    const fetchUser = async () => {
-      if(user) {
-        const fetchedUserData = await axios.get("/users/" + user.sub);
-        if(fetchedUserData.data){
-          setUserData(fetchedUserData.data);
-        }
+    const fetchProfileData = async () => {
+      const fetchedProfileData = await axios.get(sub);
+      if(fetchedProfileData.data){
+        setUserData(fetchedProfileData.data);
       }
     }
-    fetchUser();
-  }, [user])
+    fetchProfileData();
+  }, [])
 
   return (
     <Router>

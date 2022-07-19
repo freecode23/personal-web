@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom"
 import { useAuth0 } from "@auth0/auth0-react";
-import { useUserData } from "../../context/Context";
+import { useUserData } from "../../context/UserContext";
 import "./setting.css"
 
 function Setting() {

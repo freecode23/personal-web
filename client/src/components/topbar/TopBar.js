@@ -1,7 +1,7 @@
 import "./topbar.css"
 import React from 'react';
 import { Link } from "react-router-dom";
-import { useUserData } from "../../context/Context";
+import { useUserData } from "../../context/UserContext";
 import { useAuth0 } from "@auth0/auth0-react";
 
 
@@ -56,6 +56,11 @@ export default function TopBar() {
                         <Link className="link" to={"/write"} >WRITE</Link>
                     </li>}
 
+                    <li className="topListItem">
+                        {/* <a href={publicFolderPath + userData.profilePic}>Click to download</a> */}
+                    </li>
+
+
                     <li className="topListItem"
                         onClick={handleLogout}>
                         {isAuthenticated && "LOGOUT"}
@@ -65,6 +70,7 @@ export default function TopBar() {
                 
             </div>
             <div className="topRight">
+                {/* FIX  */}
                 {isAuthenticated && userData &&
                     <Link className="link" to={"/setting"}>
                          <img className="topProfileImg"
