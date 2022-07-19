@@ -36,7 +36,7 @@ export default function TopBar() {
             </div>
             <div className="topCenter">
                 <div className="topCenterName">
-                    Sherly hartono
+                    Sherly Hartono
                 </div>
                 <div className="topCenterDescription">
                     SOFTWARE DEVELOPMENT, MACHINE LEARNING, MSCS@NORTHEASTERN UNIVERSITY

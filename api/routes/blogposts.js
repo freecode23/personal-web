@@ -38,7 +38,7 @@ router.get("/:id",
 router.get("/",
     async (req, res) => {
         const username = req.query.user;
-        const catName = req.query.cat;
+        const catName=decodeURI(req.query.cat)
 
         try {
 
@@ -47,7 +47,7 @@ router.get("/",
             if (username) { // fetch post by username
                 posts = await Post.find({ username: username });
 
-            } else if (catName) { // fetch post by category name
+            } else if (catName && catName !='undefined') { // fetch post by category name
                 posts = await Post.find({
                     categories: {
                         $in: [catName]

@@ -8,9 +8,9 @@ export const froalaConfig = {
     imageUploadURL: 'http://localhost:4000/api/upload',
     imageUploadParam: "file",
     events: {
-      'image.uploaded': function (response) {
+        'image.uploaded': function (response) {
             // console.log("config response:", response);
-      }
+        }
     },
     toolbarButtons: {
         moreText: {

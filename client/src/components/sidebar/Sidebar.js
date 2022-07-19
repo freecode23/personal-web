@@ -30,8 +30,10 @@ function Sidebar() {
 
     // 3. Create list of categories JSX with a link to home page with category filtered
     const catsJSX = cats.map((cat) => {
+        const catName = encodeURIComponent(cat.name)
+
         return (
-            <Link to={`/?cat=${cat.name}`}
+            <Link to={'/?cat=' + catName.toString()}
             className="link">
                 <li key={cat._id} className="sidebarListItem">
                     {cat.name}
