@@ -1,94 +1,94 @@
 .singlePost {
-    flex: 1;
-    padding: 40px;
-    /* display: flex; */
+  flex: 1;
+  padding: 40px;
+  /* display: flex; */
 }
 
 .singlePostImg {
-    width: 100%;
-    height: 300px;
-    border-radius: 5px;
-    object-fit: cover;
+  width: 100%;
+  height: 300px;
+  border-radius: 5px;
+  object-fit: cover;
 }
 
 .singlePostTitle {
-    color: #292929;
-    text-align: center;
-    margin: 10px;
-    font-size: 28px;
-    font-family: "Space Grotesk";
+  color: #292929;
+  text-align: center;
+  margin: 10px;
+  font-size: 28px;
+  font-family: "Space Grotesk";
 }
 
 .singlePostTitleInput {
-    font-family: "Space Grotesk";
-    text-align: center;
-    font-size: 30px;
-    border: none;
-    padding: 20px;
-    width: 70vw;
+  font-family: "Space Grotesk";
+  text-align: center;
+  font-size: 30px;
+  border: none;
+  padding: 20px;
+  width: 70vw;
 }
 
 .singlePostTitleInput:focus {
-    outline: none;
-    border: none;
-    color: grey;
-    border-bottom: 2px solid lightgrey;
+  outline: none;
+  border: none;
+  color: grey;
+  border-bottom: 2px solid lightgrey;
 }
 
 .singlePostEdit {
-    float: right;
-    font-size: 16px;
+  float: right;
+  font-size: 16px;
 }
 
 .singlePostIcon {
-    margin-left: 10px;
-    cursor: pointer;
+  margin-left: 10px;
+  cursor: pointer;
 }
 
 .singlePostIcon:first-child {
-    color: teal;
+  color: teal;
 }
 
 .singlePostIcon:last-child {
-    color: tomato;
+  color: tomato;
 }
 
 .singlePostInfo {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 16px;
-    color: #666;
-    font-family: "Open Sans";
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  color: #666;
+  font-family: "Open Sans";
 }
 
 .singlePostAuthor {
-    margin-left: 5px;
+  margin-left: 5px;
 }
 
 .singlePostDesc {
-    color: #292929;
-    font-size: 18px;
-    line-height: 25px;
-    font-family: "Open Sans";
+  color: #292929;
+  font-size: 18px;
+  line-height: 25px;
+  font-family: "Open Sans";
 }
 
 .singlePostDesc::first-letter {
-    margin-left: 20px;
-    font-size: 30px;
-    font-weight: 600;
+  margin-left: 20px;
+  font-size: 30px;
+  font-weight: 600;
 }
 
 .singlePostSubmit {
-    width: 150px;
-    margin-top: 30px;
-    background-color: #8FFFF3;
-    padding: 8px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 15px;
-    font-family: "Space Grotesk";
-    font-weight: 700;
-    cursor: pointer;
-    align-self: flex-end;
+  width: 150px;
+  margin-top: 30px;
+  background-color: #8ffff3;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family: "Space Grotesk";
+  font-weight: 700;
+  cursor: pointer;
+  align-self: flex-end;
 }

@@ -1,19 +1,20 @@
 .top {
     width: 100%;
-    height: 100px;
     background-color: white;
     position: sticky;
     top: 0;
-    padding-top: 20px;
+    padding: 20px 0;
     display: flex;
-    /* align-items: center; */
     font-family: "Space Grotesk";
     font-weight: 700;
     z-index: 999;
 }
 
 .topCenter {
-    flex: 6
+    flex: 6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .topCenterName {
@@ -32,12 +33,8 @@
     line-height: 25px;
     font-family: "Open Sans";
     padding-bottom: 20px;
-    align-items: center;
     text-align: center;
     inline-size: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .topLeft,
@@ -52,7 +49,7 @@
 /* contents */
 
 
-/* 1. images and search bar */
+/* 1. header profile image */
 
 .topSocialIcon {
     font-size: 25px;
@@ -71,13 +68,6 @@
     object-fit: cover;
 }
 
-.topSearchIcon {
-    font-size: 18px;
-    color: black;
-    cursor: pointer;
-    margin-left: 15px;
-}
-
 
 /* 2. the list of menu */
 
@@ -91,7 +81,7 @@
 }
 
 .topListItem {
-    margin-right: 20px;
+    margin: 0 8px;
     font-size: 18px;
     font-weight: 300;
     cursor: pointer;
