@@ -5,7 +5,7 @@ export const froalaConfig = {
     imageUpload: true,
     imageUploadMethod: "POST",
     imageAllowedTypes: ['jpeg', 'jpg', 'png'],
-    imageUploadURL: 'http://localhost:4000/api/upload',
+    imageUploadURL: 'http://localhost:4000/api/upload_froala',
     imageUploadParam: "file",
     events: {
         'image.uploaded': function (response) {
@@ -15,7 +15,6 @@ export const froalaConfig = {
     toolbarButtons: {
         moreText: {
             buttons: [
-
                 "bold",
                 "italic",
                 "underline",
@@ -23,15 +22,12 @@ export const froalaConfig = {
                 "strikeThrough",
                 "subscript",
                 "superscript",
-
                 // "fontFamily",
                 // "textColor",
                 // "backgroundColor",
                 // "inlineClass",
                 // "inlineStyle",
                 // "clearFormatting"
-
-
             ],
             buttonsVisible: 4
         },

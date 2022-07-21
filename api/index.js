@@ -60,7 +60,6 @@ app.get('/api/get_signature', function (req, res) {
     }
 
   const s3Hash = FroalaEditor.S3.getHash(froalaS3Configs);
-//   console.log("get_signature s3hash", s3Hash);
   res.send(s3Hash);
 });
 
@@ -85,23 +84,43 @@ const upload = multer({
         s3: s3,
         bucket: process.env.AWS_BUCKET_NAME,
         acl: 'public-read',
-        Key: function (req, file, cb) {
-
-            // Question 1: why is it now going here
-            // console.log("small K");
-            // console.log("multer request>>>" , req);
-            console.log("\nreq.body:name", req.body.name);
-            // console.log("file multers3:\n", file);
+        // Question 1: why is it not going here
+        key: function (req, file, cb) {
+            console.log("\nmulter basic req.body.name:", req.body.name);
             cb(null, req.body.name); 
         },
-
     })
 });
+
+const uploadFroala = multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: process.env.AWS_BUCKET_NAME,
+        acl: 'public-read',
+        Key: function (req, file, cb) {
+            console.log("\nmulter froala req.body.name:", req.body.name);
+            cb(null, req.body.name); 
+        },
+    })
+});
+
 
 // 5. create upload image route
 app.post("/api/upload", 
     // - upload the file to s3
     upload.single("file"), 
+
+    // - send back the file location as response
+    (req, res) => {
+        res.json({ link: req.file.location,
+                    key: req.file.key
+         }) 
+    })
+
+
+app.post("/api/upload_froala", 
+    // - upload the file to s3
+    uploadFroala.single("file"), 
 
     // - send back the file location as response
     // link: https://myblogs3bucket.s3.us-east-2.amazonaws.com/8cf10b9a45e9b14322b7b3b26fab5dfe'
@@ -113,16 +132,13 @@ app.post("/api/upload",
     })
 
 
-app.post("/api/download_resume",
+app.post("/api/resume",
     async (req, res) =>  {
-        // Question 2: Why there is no request body. it should show the user data key
-        console.log("req>>>>", req.body);
-
         try {
             const url = await s3.getSignedUrl('getObject', {
                 Bucket: process.env.AWS_BUCKET_NAME,
                 // TODO change key here with req.body key
-                Key: '77e4c8d9dd50119cc0c5babace99cdd0', 
+                Key: req.body.key, 
                 Expires: 60 * 5
             })
             res.status(200).json(url);

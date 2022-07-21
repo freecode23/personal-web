@@ -19,7 +19,6 @@ export default function TopBar() {
     const handleLogout = async (event) => {
         event.preventDefault();
         logout({returnTo: window.location.origin});
-        localStorage.removeItem("user");
     }
 
     // set resume url
@@ -27,7 +26,7 @@ export default function TopBar() {
         const fetchResumeUrl = async() => {
             if(userData) {
                 console.log("resume key:", userData.resumeKey);
-                const res = await axios.post("/download_resume", userData.resumeKey); 
+                const res = await axios.post("/resume", {key: userData.resumeKey}); 
 
                 if(res) {
                     setResumeUrl(res.data);

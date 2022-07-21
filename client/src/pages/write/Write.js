@@ -138,8 +138,6 @@ function Write() {
 
     return (
         <div className="write">
-            {/* uploaded image */}
-            {/* {file && <img className="writeImage" src={bigImageURL ? bigImageURL : URL.createObjectURL(file)} alt="" />} */}
 
             {/* if file has been staged, display */}
             {file && <img className="writeImage" src={URL.createObjectURL(file)} alt="" />}
