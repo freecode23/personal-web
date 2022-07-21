@@ -4,6 +4,8 @@ import React, {useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
 import { useUserData } from "../../context/UserContext";
 import { useAuth0 } from "@auth0/auth0-react";
+import { saveAs } from "file-saver";
+
 
 
 export default function TopBar() {
@@ -23,15 +25,24 @@ export default function TopBar() {
     // set resume url
     useEffect(() => {
         const fetchResumeUrl = async() => {
-            const res = await axios.get("/download_resume"); 
-            if(res) {
-                setResumeUrl(res.data);
+            if(userData) {
+                console.log("resume key:", userData.resumeKey);
+                const res = await axios.post("/download_resume", userData.resumeKey); 
+
+                if(res) {
+                    setResumeUrl(res.data);
+                }
             }
         }
         fetchResumeUrl()
         
-    }, [])
+    }, [userData])
 
+    const saveFile = () => {
+        console.log("savefile....");
+        // Question 3: not downloading as the name (download as the key)
+        saveAs(resumeUrl, "SherlyHartono.pdf");
+    };
 
     return (
         <div className="top">
@@ -54,49 +65,55 @@ export default function TopBar() {
                     Sherly Hartono
                 </div>
                 <div className="topCenterDescription">
-                    SOFTWARE DEVELOPMENT, MACHINE LEARNING, MSCS@NORTHEASTERN UNIVERSITY
+                    SOFTWARE DEVELOPMENT, MACHINE LEARNING, MSCS@NORTHEASTERN
                 </div>
                 <ul className="topList">
                     <li className="topListItem">
                         <Link className="link" to={"/"}>HOME</Link>
                     </li>
                     <li className="topListItem">
-                        <Link className="link" to={"/about"}>ABOUT</Link>
-                    </li>
-                    <li className="topListItem">
                         <Link className="link" to={"/contact"}>CONTACT</Link>
                     </li>
 
-                    {isAuthenticated && <li className="topListItem">
+                    {isAuthenticated &&
+                    <li className="topListItem">
                         <Link className="link" to={"/write"} >WRITE</Link>
                     </li>}
 
                     {userData &&
-                        <li className="topListItem" >
-                            <a className="link" href={resumeUrl}>RESUME</a>
-                        </li>
-                    }
+                        <li className="topListItem" onClick={saveFile}>
+                            {/* <a className="link"
+                               href={resumeUrl}
+                               download="SherlyHartono.pdf">RESUME</a> */}
 
-                    <li className="topListItem"
-                        onClick={handleLogout}>
-                        {isAuthenticated && "LOGOUT"}
-                    </li>
+
+                            RESUME
+                        </li>
+
+
+                    }
                 </ul>
 
                 
             </div>
             <div className="topRight">
-                {/* FIX  */}
                 {isAuthenticated && userData &&
-                    <Link className="link" to={"/setting"}>
-                         <img className="topProfileImg"
-                         src={publicFolderPath + userData.profilePic}
-                         alt="profile" />
-                    </Link>
+                    <>
+                        <p className="topLogoutButton"
+                            onClick={handleLogout}>
+                            logout
+                        </p>
 
+                        <Link className="link" to={"/setting"}>
+                            <img className="topProfileImg"
+                            src={publicFolderPath + userData.profilePic}
+                            alt="profile" />
+                        </Link>
+
+                    </>
                 }
-                <i className="topSearchIcon fa-solid fa-magnifying-glass"></i>
-            </div>
+            </div >
+
 
         </div >
     )

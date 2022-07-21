@@ -38,6 +38,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
+
+    resumeKey: {
+        type: String,
+        default: ""
+    },
     
 }, { timestamps: true })
 

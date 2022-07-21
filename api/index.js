@@ -86,9 +86,11 @@ const upload = multer({
         bucket: process.env.AWS_BUCKET_NAME,
         acl: 'public-read',
         Key: function (req, file, cb) {
+
+            // Question 1: why is it now going here
             // console.log("small K");
             // console.log("multer request>>>" , req);
-            // console.log("\nreq.body:name", req.body.name);
+            console.log("\nreq.body:name", req.body.name);
             // console.log("file multers3:\n", file);
             cb(null, req.body.name); 
         },
@@ -111,14 +113,24 @@ app.post("/api/upload",
     })
 
 
-app.get("/api/download_resume", function (req, res) {
-    const url = s3.getSignedUrl('getObject', {
-        Bucket: process.env.AWS_BUCKET_NAME,
-        Key: '04c5454f0ced6aaf6ed99f09948ad4d1',
-        Expires: 60 * 5
-        })
-    res.send(url)
-})
+app.post("/api/download_resume",
+    async (req, res) =>  {
+        // Question 2: Why there is no request body. it should show the user data key
+        console.log("req>>>>", req.body);
+
+        try {
+            const url = await s3.getSignedUrl('getObject', {
+                Bucket: process.env.AWS_BUCKET_NAME,
+                // TODO change key here with req.body key
+                Key: '77e4c8d9dd50119cc0c5babace99cdd0', 
+                Expires: 60 * 5
+            })
+            res.status(200).json(url);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+)
 
 // 4. use router
 app.use("/api/auth", authRoute);

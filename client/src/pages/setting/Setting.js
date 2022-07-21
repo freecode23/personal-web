@@ -11,8 +11,9 @@ function Setting() {
     const navigate = useNavigate();
     const { userData, setUserData } = useUserData();
 
-    // 1. variables
+    // 1. JSX variables
     const [profilePic, setProfilePic] = useState(null); 
+    const [resume, setResume] = useState(null); 
     const [username, setName] = useState(""); 
     const [email, setEmail] = useState(""); 
     const [about, setAbout] = useState(""); 
@@ -55,11 +56,34 @@ function Setting() {
             formData.append("name", filename)
             formData.append("file", profilePic);
 
-            // - upload big photo
             try {
+                // - upload big photo
                 const res = await axios.post("/upload", formData); 
                 updatedUser.profilePic=res.data.key; 
 
+            } catch (err) {
+                console.log(err);
+            }
+        } else {
+            // show error 
+        }
+
+
+        // - add resume if added
+        if (resume) {
+            console.log("if resume url resume");
+            // - create the name
+            const filename = Date.now() + resume.name;
+
+            // - create a new form data
+            const formData = new FormData();
+            formData.append("name", filename)
+            formData.append("file", resume);
+
+            try {
+                // - upload resume
+                const res = await axios.post("/upload", formData); 
+                updatedUser.resumeKey=res.data.key; 
 
             } catch (err) {
                 console.log(err);
@@ -71,7 +95,6 @@ function Setting() {
         // - update the user
         try {
             const res = await axios.post("/users", updatedUser); 
-            // console.log("res data", res.data);
             setUserData(res.data);
             res.data && navigate("/");
         } catch (err) {
@@ -88,23 +111,45 @@ function Setting() {
                     <span className="settingUpdateTitle">Update account</span>
                 </div>
                 <form className="settingForm">
-                    {/* profile picture */}
-                    <label>Change Profile Picture</label>
+                    <label>Profile Picture</label>
                     <div className="settingPp">
                         {/* if file has been staged, display */}
-                        {profilePic && <img className="writeImage" src={URL.createObjectURL(profilePic)} alt="" />}
+                        {profilePic &&
+                        <img className="writeImage"
+                            src={URL.createObjectURL(profilePic)}
+                            alt="" />}
 
                         {/* change profile pic */}
                         <label htmlFor="fileInput">
                             <i className="settingPpIcon far fa-user-circle"></i>
                         </label>
-                        {/* <input type="file" id="fileInput" style={{ display: "none" }} /> */}
                         <input id="fileInput"
                             type="file"
                             style={{ display: "none" }}
                             onChange={e => {
-                            setProfilePic(e.target.files[0]);
+                                setProfilePic(e.target.files[0]);
                         }}
+                    />
+                    </div>
+
+                    <label>Resume</label>
+                    <div className="settingPp">
+                        {/* if file has been staged, display */}
+                        {resume &&
+                        <img className="writeImage"
+                            src={URL.createObjectURL(resume)}
+                            alt="" />}
+
+                        {/* change resume */}
+                        <label htmlFor="resumeInput">
+                            <i className="settingPpIcon far fa-light fa-file"></i>
+                        </label>
+                        <input id="resumeInput"
+                            type="file"
+                            style={{ display: "none" }}
+                            onChange={e => {
+                                setResume(e.target.files[0]);
+                            }}
                     />
                     </div>
 
@@ -154,6 +199,9 @@ function Setting() {
                             onClick={handleSubmit}>
                             Update
                     </button>
+
+
+
 
 
                 </form>
