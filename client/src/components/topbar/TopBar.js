@@ -80,9 +80,6 @@ export default function TopBar() {
 
           {userData && (
             <li className="topListItem" onClick={saveFile}>
-              {/* <a className="link"
-                               href={resumeUrl}
-                               download="SherlyHartono.pdf">RESUME</a> */}
               RESUME
             </li>
           )}
@@ -91,17 +88,18 @@ export default function TopBar() {
       <div className="topRight">
         {isAuthenticated && userData && (
           <>
-            <p className="topLogoutButton" onClick={handleLogout}>
-              logout
-            </p>
-
-            <Link className="link" to={"/setting"}>
-              <img
+             {/* <a className="social link" href={userData.linkedin}></a> */}
+            <Link className="social link" to={"/setting"}>
+              {/* <img
                 className="topProfileImg"
                 src={publicFolderPath + userData.profilePic}
                 alt="profile"
-              />
+              /> */}
+              <i class="settingIcon fa-solid fa-user-astronaut"></i>
             </Link>
+            <p className="topLogoutButton" onClick={handleLogout}>
+              logout
+            </p>
           </>
         )}
       </div>

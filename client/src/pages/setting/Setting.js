@@ -68,13 +68,11 @@ function Setting() {
 
     // - add resume if added
     if (resume) {
-      console.log("if resume url resume");
       // - create the name
       const filename = resume.name;
 
       // - create a new form data
       const formData = new FormData();
-      console.log("resumefilename", filename);
       formData.append("name", filename);
       formData.append("file", resume);
 
