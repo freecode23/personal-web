@@ -32,7 +32,7 @@ function App() {
         setUserData(fetchedProfileData.data);
       }
     }
-    fetchProfileData();
+    // fetchProfileData();
   }, [])
 
   return (
