@@ -39,11 +39,11 @@
     font-size: 30px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 800px) and (min-width: 0px) {
     .contactContainer {
         margin-top: 0;
         border-top: 1px solid grey;
-        margin-right: 0;
+        margin-right: 0px;
         margin-left: 0px;
         display: flex;
         align-items: center;
@@ -59,8 +59,8 @@
     }
 }
 
-@media (max-width: 1200px) {
+@media (min-width: 800px) and (max-width:1200px) {
     .contact {
-        margin-left: 100px;
+        margin-left: 80px;
     }
 }

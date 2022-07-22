@@ -2,7 +2,7 @@
     flex: 1;
     padding: 40px;
     margin-right: 100px;
-    /* display: flex; */
+    display: flex;
 }
 
 .singlePostImg {
@@ -92,4 +92,13 @@
     font-weight: 700;
     cursor: pointer;
     align-self: flex-end;
+}
+
+@media (max-width: 800px) {
+    .singlePost {
+        display: flex;
+        flex-direction: column;
+        padding: 40px;
+        margin-right: 0px;
+    }
 }
