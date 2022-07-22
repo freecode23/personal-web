@@ -2,11 +2,16 @@
 import React from 'react';
 import DOMPurify from 'dompurify';
 
+// https://froala.com/wysiwyg-editor/docs/options/#toolbarButtons
 import "froala-editor/js/plugins.pkgd.min.js";
-import "froala-editor/css/froala_style.min.css";
-import "froala-editor/css/froala_editor.pkgd.min.css";
-
 import "froala-editor/js/plugins/font_size.min.js";
+import "froala-editor/js/plugins/font_family.min.js";
+import "froala-editor/js/plugins/video.min.js";
+
+import "froala-editor/css/froala_editor.pkgd.min.css";
+import "froala-editor/css/froala_style.min.css";
+import "froala-editor/css/plugins/video.min.css";
+
 import { froalaConfig } from './config';
 import FroalaEditor from 'react-froala-wysiwyg';
 import "./froala.css"

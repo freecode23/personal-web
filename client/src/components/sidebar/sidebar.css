@@ -42,11 +42,6 @@
     font-family: "Space Grotesk";
 }
 
-.sidebarListItem:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 0.4rem;
-}
-
 .sidebarImg {
     width: 200px;
     margin-top: 15px;
@@ -61,23 +56,17 @@
 
 .sidebarListItem {
     display: inline-block;
-    width: 50%;
-    margin-top: 10px;
+    padding: 0.4em 0.9em;
+    margin: 8px 15px 8px 15px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 13px;
+    border: 2px solid black;
+    /* border-radius: 10px; */
 }
 
-.settingPpIcon {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    display: flex;
-    background-color: #666;
+.sidebarListItem:hover {
     color: white;
-    align-items: center;
-    justify-content: center;
-    margin-left: 10px;
-    cursor: pointer;
+    background-color: black;
 }
 
 @media (max-width: 800px) {

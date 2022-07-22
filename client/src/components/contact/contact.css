@@ -39,6 +39,10 @@
     font-size: 30px;
 }
 
+.fa-brands {
+    font-size: 40px;
+}
+
 @media (max-width: 800px) and (min-width: 0px) {
     .contactContainer {
         margin-top: 0;

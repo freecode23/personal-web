@@ -1,12 +1,23 @@
 export const froalaConfig = {
     attribution: false,
     placeholderText: "Start typing...",
-    fontSizeSelection: true,
     imageUpload: true,
+    fontSizeSelection: true,
+    fontFamilySelection: true,
     imageUploadMethod: "POST",
     imageAllowedTypes: ['jpeg', 'jpg', 'png'],
     imageUploadURL: 'http://localhost:4000/api/upload_froala',
     imageUploadParam: "file",
+    fontFamily: {
+        'Arial,Helvetica,sans-serif': 'Arial',
+        'Georgia,serif': 'Georgia',
+        'Impact,Charcoal,sans-serif': 'Impact',
+        'Tahoma,Geneva,sans-serif': 'Tahoma',
+        "'Times New Roman',Times,serif": 'Times New Roman',
+        'Verdana,Geneva,sans-serif': 'Verdana',
+        'Space Grotesk': 'Space Grotesk',
+        'Open Sans': 'Open Sans'
+    },
     events: {
         'image.uploaded': function (response) {
             // console.log("config response:", response);
@@ -17,14 +28,14 @@ export const froalaConfig = {
             buttons: [
                 "bold",
                 "italic",
-                "underline",
                 "fontSize",
+                "fontFamily",
+                "underline",
                 "strikeThrough",
-                "subscript",
-                "superscript",
-                // "fontFamily",
-                // "textColor",
-                // "backgroundColor",
+                "textColor",
+                "backgroundColor",
+                // "subscript",
+                // "superscript",
                 // "inlineClass",
                 // "inlineStyle",
                 // "clearFormatting"
@@ -33,7 +44,6 @@ export const froalaConfig = {
         },
         moreParagraph: {
             buttons: [
-                "|",
                 "alignLeft",
                 "alignCenter",
                 "formatOLSimple",
@@ -56,11 +66,11 @@ export const froalaConfig = {
                 "insertVideo",
                 "insertTable",
                 "emoticons",
-                "fontAwesome",
+                // "fontAwesome",
                 "specialCharacters",
-                "embedly",
+                // "embedly",
                 "insertFile",
-                "insertHR"
+                // "insertHR"
             ]
         },
         moreMisc: {
@@ -87,7 +97,7 @@ export const froalaConfig = {
         "quickInsert",
         "paragraphFormat",
         "paragraphStyle",
-
+        "fontFamily",
         "fontSize",
         "help",
         "draggable",
