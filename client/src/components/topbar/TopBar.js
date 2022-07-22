@@ -7,8 +7,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { saveAs } from "file-saver";
 
 export default function TopBar() {
-  const publicFolderPath = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/";
   const { isAuthenticated, logout } = useAuth0();
+  
   const { userData } = useUserData();
   const [resumeUrl, setResumeUrl] = useState("");
 

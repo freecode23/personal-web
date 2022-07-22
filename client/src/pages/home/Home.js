@@ -2,11 +2,9 @@ import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-// import Header from "../../components/header/Header"
 
 import Posts from "../../components/posts/Posts";
 import Sidebar from "../../components/sidebar/Sidebar";
-import TopBar from "../../components/topbar/TopBar";
 import "./home.css";
 
 export default function Home() {
