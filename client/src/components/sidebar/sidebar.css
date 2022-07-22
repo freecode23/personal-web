@@ -7,9 +7,7 @@
     top: 0;
     right: 0;
     bottom: 0;
-    /* background-color: #fdfbfb; */
     flex-direction: column;
-    /* align-items: center; */
     font-family: "Open Sans";
     width: 380px;
     border-left: 1px solid #a7a4a4;
@@ -28,9 +26,8 @@
 
 .sidebarAbout {
     margin: 30px;
-    margin-bottom: 10px;
     text-align: left;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .sidebarTitle {
@@ -47,7 +44,7 @@
 
 .sidebarListItem:hover {
     text-decoration: underline;
-    text-decoration-thickness: 0.15rem;
+    text-decoration-thickness: 0.4rem;
 }
 
 .sidebarImg {
@@ -67,7 +64,7 @@
     width: 50%;
     margin-top: 10px;
     cursor: pointer;
-    font-size: 17px;
+    font-size: 16px;
 }
 
 .settingPpIcon {
@@ -83,9 +80,13 @@
     cursor: pointer;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 800px) {
     .sidebar {
+        padding-top: 80px;
         position: relative;
         top: revert;
+        border-left: none;
+        right: 0;
+        bottom: 0;
     }
 }

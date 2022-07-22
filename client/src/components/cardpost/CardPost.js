@@ -25,7 +25,6 @@ function CardPost(props) {
             <div className="post box">
                 <img
                     className="postImg"
-                    
                     src={publicFolderPath+props.post.picture}
                     alt="blog cover"
                 />

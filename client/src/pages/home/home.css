@@ -1,19 +1,19 @@
 .home {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
 }
 
 .notif {
-  flex: 9;
-  font-family: "Open Sans";
-  color: grey;
-  font-style: italic;
+    flex: 9;
+    font-family: "Open Sans";
+    color: grey;
+    font-style: italic;
 }
 
-@media (max-width: 480px) {
-  .home {
-    flex-direction: column;
-  }
+@media (max-width: 800px) {
+    .home {
+        flex-direction: column;
+    }
 }

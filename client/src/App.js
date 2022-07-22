@@ -5,6 +5,7 @@ import Single from "./pages/single/Single";
 import Write from "./pages/write/Write";
 import Setting from "./pages/setting/Setting";
 import Login from "./pages/login/Login";
+import Contact from "./components/contact/Contact";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -39,8 +40,10 @@ function App() {
         <Route path="/login" element={user ? <Home /> : <Login />} />
         <Route path="/" element={<Home />} />
 
-        {/* Write Route */}
-        {user && !isLoading && <Route path="/write" element={<Write />} />}
+        {user && !isLoading &&
+          <Route path="/write" element={<Write />} />
+        }
+        
         {!user && (
           <Route
             path="/write"
@@ -51,6 +54,7 @@ function App() {
         <Route path="/setting" element={user ? <Setting /> : <Login />} />
         <Route path="/blogposts/:postId" element={<Single />} />
       </Routes>
+      <Contact />
     </Router>
   );
 }
