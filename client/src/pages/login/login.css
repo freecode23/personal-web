@@ -1,67 +1,67 @@
 .login {
-  height: calc(100vh - 50px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    height: calc(100vh - 200px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .loginTitle {
-  font-family: "Space Grotesk";
-  font-size: 40px;
+    font-family: "Space Grotesk";
+    font-size: 40px;
 }
 
 .loginForm {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
-.loginForm > label {
-  font-family: "Space Grotesk";
-  margin: 10px 0;
+.loginForm>label {
+    font-family: "Space Grotesk";
+    margin: 10px 0;
 }
 
 .loginInput {
-  padding: 10px;
-  background-color: white;
-  border: none;
-  border-bottom: 1px solid black;
+    padding: 10px;
+    background-color: white;
+    border: none;
+    border-bottom: 1px solid black;
 }
 
 .loginInput:focus {
-  outline: none;
+    outline: none;
 }
 
 .loginButton {
-  font-family: "Space Grotesk";
-  font-weight: 700;
-  padding: 10px;
-  margin-top: 20px;
-  cursor: pointer;
-  border: 1px solid black;
-  background-color: rgb(255, 255, 255);
+    font-family: "Space Grotesk";
+    font-weight: 700;
+    padding: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    border: 1px solid black;
+    background-color: rgb(255, 255, 255);
 }
 
 .loginButton:disabled {
-  cursor: not-allowed;
-  background-color: grey;
+    cursor: not-allowed;
+    background-color: grey;
 }
 
 .loginButton:hover {
-  margin-top: 20px;
-  cursor: pointer;
-  /* border: 1px solid black; */
-  color: white;
-  background-color: black;
+    margin-top: 20px;
+    cursor: pointer;
+    /* border: 1px solid black; */
+    color: white;
+    background-color: black;
 }
 
 .loginRegisterButton {
-  font-family: "Space Grotesk";
-  font-weight: 700;
-  padding: 10px;
-  margin-top: 20px;
-  cursor: pointer;
-  border: 1px solid black;
-  background-color: #8ffff3;
+    font-family: "Space Grotesk";
+    font-weight: 700;
+    padding: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    border: 1px solid black;
+    background-color: #8ffff3;
 }

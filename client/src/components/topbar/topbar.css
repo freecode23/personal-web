@@ -1,14 +1,15 @@
-.top {
+.all {
     width: 100%;
-    background-color: white;
-    position: sticky;
-    top: 0;
-    /* padding: 20px 0; */
-    display: flex;
+    padding: 10px 0 0 0;
     font-family: "Space Grotesk";
-    font-weight: 700;
+    position: sticky;
+    background-color: white;
+    top: 0;
     z-index: 999;
-    border-bottom: 1px solid #a7a4a4;
+}
+
+.top {
+    display: flex;
 }
 
 .topCenter {
@@ -31,9 +32,9 @@
     color: rgb(153, 153, 153);
     font-size: 14px;
     font-weight: 200;
-    line-height: 25px;
+    line-height: 20px;
     font-family: "Open Sans";
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     text-align: center;
     inline-size: 400px;
 }
@@ -58,13 +59,14 @@
 /* 1. header profile image */
 
 .topSocialIcon {
-    font-size: 25px;
+    font-size: 35px;
     cursor: pointer;
     margin-right: 8px;
+    padding: 10px;
 }
 
 .topSocialIcon:hover {
-    color: #8FFFF3;
+    color: #a9fff6;
 }
 
 .topProfileImg {
@@ -77,26 +79,30 @@
 
 /* 2. the list of menu */
 
+.topMenu {
+    border-bottom: 1px solid #a7a4a4;
+}
+
 .topList {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0;
-    padding: 0;
+    padding: 5px 20px 5px 0px;
     list-style: none;
 }
 
 .topListItem {
-    margin: 0 8px;
-    font-size: 18px;
     font-weight: 300;
     cursor: pointer;
     position: relative;
+    font-size: 18px;
+    padding: 12px;
+    font-weight: 700;
 }
 
 .topListItem::after {
-    /* background-image: linear-gradient(90deg, #a0f5e9, #a0f5e9); */
-    background-color: #8FFFF3;
+    background-color: #a9fff6;
     background-repeat: no-repeat;
     content: '';
     width: 0%;
@@ -115,7 +121,6 @@
 }
 
 .topLogoutButton {
-    font-family: "Space Grotesk";
     font-weight: 700;
     padding: 10px;
     margin-left: 16px;
@@ -148,9 +153,30 @@
     }
 }
 
-.settingIcon {
-    font-size: 45px;
-    color: white;
-    background-color: black;
-    border-radius: 40%;
+.topSettingIcon {
+    font-size: 35px;
+    cursor: pointer;
+}
+
+.topSettingIcon:hover {
+    color: #a9fff6;
+}
+
+.download {
+    color: black;
+}
+
+.topResume .download {
+    display: none;
+}
+
+.topResume:hover .resume {
+    display: none;
+}
+
+.topResume:hover .download {
+    font-size: 30px;
+    padding: 0 36px 0 36px;
+    display: inline;
+    cursor: pointer;
 }

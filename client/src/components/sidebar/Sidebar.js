@@ -48,12 +48,12 @@ function Sidebar() {
               alt="sherly"
             />
 
-            <p>{userData.about}</p>
+            <p className="sidebarAbout">{userData.about}</p>
           </>
         )}
       </div>
       <div className="sidebarItem">
-        <span className="sidebarTitle">Categories</span>
+        <span className="sidebarTitle">Skills</span>
         <ul className="sidebarList">{catsJSX}</ul>
       </div>
     </aside>

@@ -40,69 +40,82 @@ export default function TopBar() {
   };
 
   return (
-    <div className="top">
-      <div className="topLeft">
-        {userData && (
-          <>
-            <a className="social link" href={userData.github}>
-              <i className="topSocialIcon fa-brands fa-github-square "></i>
-            </a>
-            <a className="social link" href={userData.linkedin}>
-              <i className="topSocialIcon fa-brands fa-linkedin"></i>
-            </a>
-          </>
-        )}
-      </div>
-      <div className="topCenter">
-        <div className="topCenterName">Sherly Hartono</div>
-        <div className="topCenterDescription">
-          SOFTWARE DEVELOPMENT, MACHINE LEARNING, MSCS@NORTHEASTERN
+    <div className="all">
+        <div className="top">
+            <div className="topLeft">
+                {userData && (
+                <>
+                    <a className="social link" href={userData.github}>
+                    <i className="topSocialIcon fa-brands fa-github-square "></i>
+                    </a>
+                    <a className="social link" href={userData.linkedin}>
+                    <i className="topSocialIcon fa-brands fa-linkedin"></i>
+                    </a>
+                </>
+                )}
+            </div>
+            <div className="topCenter">
+                <div className="topCenterName">
+                    Sherly Hartono
+                </div>
+                <div className="topCenterDescription">
+                    SOFTWARE DEVELOPMENT, MACHINE LEARNING, MSCS@NORTHEASTERN
+                </div>
+            </div>
+
+            <div className="topRight">
+                {isAuthenticated && userData && (
+                <>
+                    {/* <a className="social link" href={userData.linkedin}></a> */}
+                    <Link className="social link" to={"/setting"}>
+                    {/* <img
+                        className="topProfileImg"
+                        src={publicFolderPath + userData.profilePic}
+                        alt="profile"
+                    /> */}
+                    <i class="topSettingIcon fa-solid fa-user-astronaut fa-20x"></i>
+                    </Link>
+                    <p className="topLogoutButton" onClick={handleLogout}>
+                    logout
+                    </p>
+                </>
+                )}
+            </div>
         </div>
-        <ul className="topList">
-          <li className="topListItem">
-            <Link className="link" to={"/"}>
-              HOME
-            </Link>
-          </li>
-          <li className="topListItem">
-            <Link className="link" to={"/contact"}>
-              CONTACT
-            </Link>
-          </li>
 
-          {isAuthenticated && (
-            <li className="topListItem">
-              <Link className="link" to={"/write"}>
-                WRITE
-              </Link>
-            </li>
-          )}
+        <div  className="topMenu">
+            <ul className="topList">
+                <li className="topListItem">
+                    <Link className="link" to={"/"}>
+                    HOME
+                    </Link>
+                </li>
+                <li className="topListItem">
+                    <Link className="link" to={"/contact"}>
+                    CONTACT
+                    </Link>
+                </li>
 
-          {userData && (
-            <li className="topListItem" onClick={saveFile}>
-              RESUME
-            </li>
-          )}
-        </ul>
-      </div>
-      <div className="topRight">
-        {isAuthenticated && userData && (
-          <>
-             {/* <a className="social link" href={userData.linkedin}></a> */}
-            <Link className="social link" to={"/setting"}>
-              {/* <img
-                className="topProfileImg"
-                src={publicFolderPath + userData.profilePic}
-                alt="profile"
-              /> */}
-              <i class="settingIcon fa-solid fa-user-astronaut"></i>
-            </Link>
-            <p className="topLogoutButton" onClick={handleLogout}>
-              logout
-            </p>
-          </>
-        )}
-      </div>
+                
+                
+                {userData && (  
+                    <div className="topResume">
+                        <li className="resume topListItem" onClick={saveFile}>
+                        RESUME
+                        </li>
+                        <i class="download fa-solid fa-file-arrow-down">     </i>
+                    </div>
+                )}
+
+                {isAuthenticated && (
+                    <li className="topListItem">
+                    <Link className="link" to={"/write"}>
+                        WRITE
+                    </Link>
+                    </li>
+                )}
+            </ul>
+        </div>
     </div>
   );
 }
