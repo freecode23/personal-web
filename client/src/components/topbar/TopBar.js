@@ -100,10 +100,10 @@ export default function TopBar() {
                 
                 {userData && (  
                     <div className="topResume">
-                        <li className="resume topListItem" onClick={saveFile}>
+                        <li className="resume topListItem">
                         RESUME
                         </li>
-                        <i class="download fa-solid fa-file-arrow-down">     </i>
+                        <i class="download fa-solid fa-file-arrow-down" onClick={saveFile}>     </i>
                     </div>
                 )}
 
