@@ -37,7 +37,6 @@ export default function Home() {
   return (
     <>
       {/* <Header /> */}
-       <TopBar />
       <div className="home">
         {posts.length > 0 ? (
           <Posts posts={posts} />

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import TopBar from "./components/topbar/TopBar";
 import Home from "./pages/home/Home";
 import Single from "./pages/single/Single";
 import Write from "./pages/write/Write";
@@ -33,9 +34,10 @@ function App() {
 
   return (
     <Router>
+      <TopBar />
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/login" element={user ? <Home /> : <Login />} />
+        <Route path="/" element={<Home />} />
 
         {/* Write Route */}
         {user && !isLoading && <Route path="/write" element={<Write />} />}
