@@ -11,20 +11,20 @@ const UploadImages = () => {
 
         // 2. convert file
         const convertedFile = await convertToBase64(file);
-        
+
         // 3. make post request
         const s3URL = await axios.post(
-        'http://localhost:3000/api/upload',
-        {
-            image: convertedFile,
-            imageName: file.name
-        }
-    );
+            'http://localhost:3000/api/upload',
+            {
+                image: convertedFile,
+                imageName: file.name
+            }
+        );
     }
 
     const convertToBase64 = (file) => {
         return new Promise(resolve => {
-            const reader = new FileReader();       
+            const reader = new FileReader();
 
             // read data
             reader.readAsDataURL(file);

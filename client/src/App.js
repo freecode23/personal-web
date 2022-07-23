@@ -43,7 +43,7 @@ function App() {
         {user && !isLoading &&
           <Route path="/write" element={<Write />} />
         }
-        
+
         {!user && (
           <Route
             path="/write"

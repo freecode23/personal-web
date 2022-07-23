@@ -86,29 +86,29 @@ function SinglePost() {
 
 
   const catJSXElements = categories.map(cat => {
-      return (
-          <span key={cat} className="postCat">
-              {cat}
-          </span>
-      )
+    return (
+      <span key={cat} className="postCat">
+        {cat}
+      </span>
+    )
   })
 
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
-                                      
-          {isAuthenticated && (
-            <div className="singlePostEdit">
-              <i
-                className="singlePostIcon far fa-edit"
-                onClick={() => setUpdateMode(true)}
-              ></i>
-              <i
-                className="singlePostIcon far fa-trash-alt"
-                onClick={handleDelete}
-              ></i>
-            </div>
-          )}
+
+        {isAuthenticated && (
+          <div className="singlePostEdit">
+            <i
+              className="singlePostIcon far fa-edit"
+              onClick={() => setUpdateMode(true)}
+            ></i>
+            <i
+              className="singlePostIcon far fa-trash-alt"
+              onClick={handleDelete}
+            ></i>
+          </div>
+        )}
 
         {/* title */}
         {updateMode ? (
@@ -126,7 +126,7 @@ function SinglePost() {
           </h1>
         )}
 
-  
+
         <div className="singlePostCatWrapper">
           {catJSXElements}
         </div>
@@ -146,16 +146,16 @@ function SinglePost() {
             imageUploadToS3={signature}
           />
         ) : (
-            <div className="singlePostContent"
-              dangerouslySetInnerHTML={
-                //sanitize content and enforce style
-                {
-                  __html: DOMPurify.sanitize(post.content, {
-                    FORCE_BODY: true,
-                  }),
-                }
+          <div className="singlePostContent"
+            dangerouslySetInnerHTML={
+              //sanitize content and enforce style
+              {
+                __html: DOMPurify.sanitize(post.content, {
+                  FORCE_BODY: true,
+                }),
               }
-            ></div>
+            }
+          ></div>
         )}
 
         {updateMode && (

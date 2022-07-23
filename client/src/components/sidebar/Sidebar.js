@@ -31,10 +31,9 @@ function Sidebar() {
     return (
       <Link to={"/?cat=" + catName.toString()} className="link">
         <li key={cat._id} className="sidebarListItem">
-        <p className="sidebarListText">
-
-          {cat.name}
-        </p>
+          <p className="sidebarListText">
+            {cat.name}
+          </p>
         </li>
       </Link>
     );

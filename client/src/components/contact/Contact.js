@@ -11,9 +11,9 @@ function Contact() {
       <div className="contact">
         <p>Get in Touch!</p>
 
-        {userData && 
-          <a className="contactItem link" 
-            href = {`mailto:${userData.email}?subject=Hi!`}>
+        {userData &&
+          <a className="contactItem link"
+            href={`mailto:${userData.email}?subject=Hi!`}>
             <i className="contactIcon fa fa-envelope"></i>
             <p className="contactContent">
               {userData.email}
@@ -22,7 +22,7 @@ function Contact() {
         }
 
         <a className="contactItem link"
-        href="tel:480-678-0800">
+          href="tel:480-678-0800">
           <i class="contactIcon fa fa-solid fa-phone"></i>
           <p className="contactContent">
             480-678-0800
@@ -30,7 +30,7 @@ function Contact() {
         </a>
 
         <a className="contactItem link"
-        href="https://www.instagram.com/shartono1/">
+          href="https://www.instagram.com/shartono1/">
           <i class="contactIcon fa-brands fa-instagram-square"></i>
           <p className="contactContent">
             shartono1

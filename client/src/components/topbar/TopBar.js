@@ -7,115 +7,115 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { saveAs } from "file-saver";
 
 export default function TopBar() {
-  const { isAuthenticated, logout } = useAuth0();
-  
-  const { userData } = useUserData();
-  const [resumeUrl, setResumeUrl] = useState("");
+    const { isAuthenticated, logout } = useAuth0();
 
-  // fetch user here to get link github, linkedin, and picture
-  const handleLogout = async (event) => {
-    event.preventDefault();
-    logout({ returnTo: window.location.origin });
-  };
+    const { userData } = useUserData();
+    const [resumeUrl, setResumeUrl] = useState("");
 
-  // set resume url
-  useEffect(() => {
-    const fetchResumeUrl = async () => {
-      if (userData) {
-        console.log("resume key:", userData.resumeKey);
-        const res = await axios.post("/resume", { key: userData.resumeKey });
-
-        if (res) {
-          setResumeUrl(res.data);
-        }
-      }
+    // fetch user here to get link github, linkedin, and picture
+    const handleLogout = async (event) => {
+        event.preventDefault();
+        logout({ returnTo: window.location.origin });
     };
-    fetchResumeUrl();
-  }, [userData]);
 
-  const saveFile = () => {
-    console.log("savefile....");
-    // Question 3: not downloading as the name (download as the key)
-    saveAs(resumeUrl, "SherlyHartono.pdf");
-  };
+    // set resume url
+    useEffect(() => {
+        const fetchResumeUrl = async () => {
+            if (userData) {
+                console.log("resume key:", userData.resumeKey);
+                const res = await axios.post("/resume", { key: userData.resumeKey });
 
-  return (
-    <div className="all">
-        <div className="top">
-            <div className="topLeft">
-                {userData && (
-                <>
-                    <a className="social link" href={userData.github}>
-                    <i className="topSocialIcon fa-brands fa-github-square "></i>
-                    </a>
-                    <a className="social link" href={userData.linkedin}>
-                    <i className="topSocialIcon fa-brands fa-linkedin"></i>
-                    </a>
-                </>
-                )}
-            </div>
-            <div className="topCenter">
-                <div className="topCenterName">
-                    Sherly Hartono
+                if (res) {
+                    setResumeUrl(res.data);
+                }
+            }
+        };
+        fetchResumeUrl();
+    }, [userData]);
+
+    const saveFile = () => {
+        console.log("savefile....");
+        // Question 3: not downloading as the name (download as the key)
+        saveAs(resumeUrl, "SherlyHartono.pdf");
+    };
+
+    return (
+        <div className="all">
+            <div className="top">
+                <div className="topLeft">
+                    {userData && (
+                        <>
+                            <a className="social link" href={userData.github}>
+                                <i className="topSocialIcon fa-brands fa-github-square "></i>
+                            </a>
+                            <a className="social link" href={userData.linkedin}>
+                                <i className="topSocialIcon fa-brands fa-linkedin"></i>
+                            </a>
+                        </>
+                    )}
                 </div>
-                <div className="topCenterDescription">
-                    SOFTWARE DEVELOPMENT, MACHINE LEARNING, MSCS@NORTHEASTERN
+                <div className="topCenter">
+                    <div className="topCenterName">
+                        Sherly Hartono
+                    </div>
+                    <div className="topCenterDescription">
+                        SOFTWARE DEVELOPMENT, MACHINE LEARNING, MSCS@NORTHEASTERN
+                    </div>
                 </div>
-            </div>
 
-            <div className="topRight">
-                {isAuthenticated && userData && (
-                <>
-                    {/* <a className="social link" href={userData.linkedin}></a> */}
-                    <Link className="social link" to={"/setting"}>
-                    {/* <img
+                <div className="topRight">
+                    {isAuthenticated && userData && (
+                        <>
+                            {/* <a className="social link" href={userData.linkedin}></a> */}
+                            <Link className="social link" to={"/setting"}>
+                                {/* <img
                         className="topProfileImg"
                         src={publicFolderPath + userData.profilePic}
                         alt="profile"
                     /> */}
-                    <i class="topSettingIcon fa-solid fa-user-astronaut fa-20x"></i>
-                    </Link>
-                    <p className="topLogoutButton" onClick={handleLogout}>
-                    logout
-                    </p>
-                </>
-                )}
+                                <i class="topSettingIcon fa-solid fa-user-astronaut fa-20x"></i>
+                            </Link>
+                            <p className="topLogoutButton" onClick={handleLogout}>
+                                logout
+                            </p>
+                        </>
+                    )}
+                </div>
+            </div>
+
+            <div className="topMenu">
+                <ul className="topList">
+                    <li className="topListItem">
+                        <Link className="link" to={"/"}>
+                            HOME
+                        </Link>
+                    </li>
+                    <li className="topListItem">
+                        <Link className="link" to={"/contact"}>
+                            CONTACT
+                        </Link>
+                    </li>
+
+
+
+                    {userData && (
+                        <div className="topResume">
+                            <li className="resume topListItem">
+                                RESUME
+                            </li>
+                            <i class="download fa-solid fa-file-arrow-down" onClick={saveFile}>     </i>
+                        </div>
+                    )}
+
+                    {isAuthenticated && (
+                        <li className="topListItem">
+                            <Link className="link" to={"/write"}>
+                                WRITE
+                            </Link>
+                        </li>
+                    )}
+                </ul>
             </div>
         </div>
-
-        <div  className="topMenu">
-            <ul className="topList">
-                <li className="topListItem">
-                    <Link className="link" to={"/"}>
-                    HOME
-                    </Link>
-                </li>
-                <li className="topListItem">
-                    <Link className="link" to={"/contact"}>
-                    CONTACT
-                    </Link>
-                </li>
-
-                
-                
-                {userData && (  
-                    <div className="topResume">
-                        <li className="resume topListItem">
-                        RESUME
-                        </li>
-                        <i class="download fa-solid fa-file-arrow-down" onClick={saveFile}>     </i>
-                    </div>
-                )}
-
-                {isAuthenticated && (
-                    <li className="topListItem">
-                    <Link className="link" to={"/write"}>
-                        WRITE
-                    </Link>
-                    </li>
-                )}
-            </ul>
-        </div>
-    </div>
-  );
+    );
 }

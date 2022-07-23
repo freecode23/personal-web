@@ -48,9 +48,7 @@ function Write() {
     };
     // - add big photo if file exists - will be set by the JSX
     if (file) {
-      // - create the name
       const filename = Date.now() + file.name;
-
       // - create a new form data
       const formData = new FormData();
       formData.append("name", filename);

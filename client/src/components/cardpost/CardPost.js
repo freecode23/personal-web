@@ -17,22 +17,22 @@ function CardPost(props) {
     })
 
     // 3. get the first paragraph
-    const doc=new DOMParser().parseFromString(props.post.content, 'text/html')
-    const content=doc.querySelector('p').textContent
+    const doc = new DOMParser().parseFromString(props.post.content, 'text/html')
+    const content = doc.querySelector('p').textContent
     return (
 
         <Link className="link" to={`/blogposts/${props.post._id}`}>
             <div className="post box">
                 <img
                     className="postImg"
-                    src={publicFolderPath+props.post.picture}
+                    src={publicFolderPath + props.post.picture}
                     alt="blog cover"
                 />
 
                 <div className="postInfo">
                     <span className="postTitle">{props.post.title}</span>
                 </div>
-                
+
                 <p className="postDesc">
                     {content}
                     {/* <div dangerouslySetInnerHTML={{
