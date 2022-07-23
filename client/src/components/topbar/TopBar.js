@@ -6,8 +6,9 @@ import { useUserData } from "../../context/UserContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import { saveAs } from "file-saver";
 
-export default function TopBar() {
+export default function TopBar(props) {
     const { isAuthenticated, logout } = useAuth0();
+
 
     const { userData } = useUserData();
     const [resumeUrl, setResumeUrl] = useState("");
@@ -66,13 +67,7 @@ export default function TopBar() {
                 <div className="topRight">
                     {isAuthenticated && userData && (
                         <>
-                            {/* <a className="social link" href={userData.linkedin}></a> */}
                             <Link className="social link" to={"/setting"}>
-                                {/* <img
-                        className="topProfileImg"
-                        src={publicFolderPath + userData.profilePic}
-                        alt="profile"
-                    /> */}
                                 <i class="topSettingIcon fa-solid fa-user-astronaut fa-20x"></i>
                             </Link>
                             <p className="topLogoutButton" onClick={handleLogout}>
@@ -83,7 +78,7 @@ export default function TopBar() {
                 </div>
             </div>
 
-            <div className="topMenu">
+            <div className="topMenu" >
                 <ul className="topList">
                     <li className="topListItem">
                         <Link className="link" to={"/"}>
@@ -91,9 +86,7 @@ export default function TopBar() {
                         </Link>
                     </li>
                     <li className="topListItem">
-                        <Link className="link" to={"/contact"}>
-                            CONTACT
-                        </Link>
+                        <p onClick={props.scrollHandler}>CONTACT</p>
                     </li>
 
 
