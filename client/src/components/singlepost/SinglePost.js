@@ -13,6 +13,7 @@ function SinglePost() {
   const { user, isAuthenticated } = useAuth0();
   const [updateMode, setUpdateMode] = useState(false);
   const [title, setTitle] = useState("");
+  const [categories, setCategories] = useState([]);
   const [signature, setSignature] = React.useState();
   const [editorContent, setEditorContent] = React.useState({
     model: "",
@@ -56,6 +57,7 @@ function SinglePost() {
       const res = await axios.get("/blogposts/" + param.postId);
       setPost(res.data);
       setTitle(res.data.title);
+      setCategories(res.data.categories)
 
       // fill in the value on textarea
       setEditorContent({ model: res.data.content });
@@ -82,15 +84,31 @@ function SinglePost() {
     await navigate("/");
   };
 
+
+  const catJSXElements = categories.map(cat => {
+      return (
+          <span key={cat} className="postCat">
+              {cat}
+          </span>
+      )
+  })
+
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
-        {/* image */}
-        <img
-          className="singlePostImg"
-          src={publicFolderPath + post.picture}
-          alt=""
-        />
+                                      
+          {isAuthenticated && (
+            <div className="singlePostEdit">
+              <i
+                className="singlePostIcon far fa-edit"
+                onClick={() => setUpdateMode(true)}
+              ></i>
+              <i
+                className="singlePostIcon far fa-trash-alt"
+                onClick={handleDelete}
+              ></i>
+            </div>
+          )}
 
         {/* title */}
         {updateMode ? (
@@ -102,24 +120,25 @@ function SinglePost() {
             autoFocus
           />
         ) : (
+
           <h1 className="singlePostTitle">
             {post.title}
-            {isAuthenticated && (
-              <div className="singlePostEdit">
-                <i
-                  className="singlePostIcon far fa-edit"
-                  onClick={() => setUpdateMode(true)}
-                ></i>
-                <i
-                  className="singlePostIcon far fa-trash-alt"
-                  onClick={handleDelete}
-                ></i>
-              </div>
-            )}
           </h1>
         )}
 
-        {/* Desc */}
+  
+        <div className="singlePostCatWrapper">
+          {catJSXElements}
+        </div>
+
+        {/* image */}
+        <img
+          className="singlePostImg"
+          src={publicFolderPath + post.picture}
+          alt=""
+        />
+
+        {/* Content */}
         {updateMode ? (
           <Froala
             editorContent={editorContent}
@@ -127,8 +146,7 @@ function SinglePost() {
             imageUploadToS3={signature}
           />
         ) : (
-          <p className="singlePostDesc">
-            <div
+            <div className="singlePostContent"
               dangerouslySetInnerHTML={
                 //sanitize content and enforce style
                 {
@@ -138,7 +156,6 @@ function SinglePost() {
                 }
               }
             ></div>
-          </p>
         )}
 
         {updateMode && (

@@ -11,7 +11,11 @@ export default function Login() {
       {!error && !isLoading && (
         <>
           <span className="loginTitle">Login</span>
-          <button className="loginButton" onClick={() => loginWithRedirect()}>
+          <button className="loginButton" onClick={async() => {
+            const res = await loginWithRedirect()
+            console.log("res>>>", res)
+
+          }}> 
             Login
           </button>
         </>

@@ -1,8 +1,8 @@
 .post {
     margin: 40px 20px 40px 20px;
     cursor: pointer;
-    padding-top: 0;
     padding: 10px;
+    padding-top: 0;
 }
 
 .box {
@@ -58,10 +58,10 @@
 .postCat {
     font-family: "Space Grotesk";
     font-size: 13px;
-    color: white;
-    background-color: rgb(15, 15, 15);
     line-height: 10px;
     padding: 10px;
+    color: white;
+    background-color: rgb(15, 15, 15);
     border: 1px solid white;
 }
 
